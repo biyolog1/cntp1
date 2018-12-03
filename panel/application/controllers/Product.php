@@ -9,9 +9,6 @@ class Product extends  CI_Controller {
     }
     public function index(){
         $viewData= new stdClass();
-
-
-
         /** Tabloadn Verilerin Getirilmesi*/
         $items=$this->Product_model->get_all();
         /** View'e gönderilecek değişkenlerin set edilmesi */
@@ -22,6 +19,8 @@ class Product extends  CI_Controller {
         $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index",$viewData);
     }
     public function new_form(){
+
+
         $viewData= new stdClass();
         $viewData->viewFolder= $this->viewFolder;
         $viewData->subViewFolder="add";
@@ -44,7 +43,7 @@ class Product extends  CI_Controller {
                 array(
                     "title" => $this->input->post("title"),
                     "description" => $this->input->post("description"),
-                    "url"  =>"test",
+                    "url"  =>convertToSeo($this->input->post("title")),
                     "rank" => 0,
                     "isActive" => 1,
                     "createdAt" =>date("Y-m-d H:i:s")
