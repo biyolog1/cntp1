@@ -7,6 +7,7 @@ class Product extends  CI_Controller {
         $this->viewFolder="product-v";
         $this->load->model("Product_model");
     }
+
     public function index(){
         $viewData= new stdClass();
         /** Tabloadn Verilerin Getirilmesi*/
@@ -18,6 +19,7 @@ class Product extends  CI_Controller {
         $viewData->items=$items;
         $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index",$viewData);
     }
+
     public function new_form(){
 
 
@@ -68,4 +70,89 @@ class Product extends  CI_Controller {
             $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index",$viewData);
         }
     }
+
+    public function update_form($id){
+        $viewData= new stdClass();
+
+        $item=$this->Product_model->get(
+          array(
+              "id" => $id
+          )
+        );
+
+
+        $viewData->viewFolder= $this->viewFolder;
+        $viewData->subViewFolder="update";
+        $viewData->item=$item;
+
+        $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index",$viewData);
+    }
+
+    public function update($id){
+        $this->load->library("form_validation");
+        $this->form_validation->set_rules("title","Başlık","required|trim");
+        $this->form_validation->set_message(
+            array(
+                "required" => "<b><i>{field}</i></b> alanı boş olamaz"
+            )
+        );
+        $validate=$this->form_validation->run();
+        if($validate)
+        {
+            $update= $this->Product_model->update(
+                array(
+                    "id" => $id
+                ),
+                array(
+                    "title" => $this->input->post("title"),
+                    "description" => $this->input->post("description"),
+                    "url"  =>convertToSeo($this->input->post("title"))
+                )
+            );
+
+            //TODO Alert sistemi eklenecek
+            if($update){
+                redirect(base_url("Product"));
+            }
+            else {
+                redirect(base_url("Product"));
+            }
+        }
+        else
+        {
+            $viewData= new stdClass();
+            $item=$this->Product_model->get(
+                array(
+                    "id" => $id
+                )
+            );
+
+            $viewData->viewFolder= $this->viewFolder;
+            $viewData->subViewFolder="update";
+            $viewData->form_error=true;
+            $viewData->item=$item;
+
+
+
+            $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index",$viewData);
+        }
+    }
+
+    public function delete($id){
+        $delete= $this->Product_model->delete(
+          array(
+              "id" => $id
+          )
+        );
+
+        //TODO alert sistemi eklenecek
+        if($delete){
+            redirect(base_url("Product"));
+        }
+        else {
+
+            redirect(base_url("Product"));
+        }
+    }
+
 }
