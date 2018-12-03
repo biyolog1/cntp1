@@ -40,7 +40,23 @@ class Product extends  CI_Controller {
         $validate=$this->form_validation->run();
         if($validate)
         {
-            echo "Başarılı bir şekilde kaydedildi." ;
+           $insert= $this->Product_model->add(
+                array(
+                    "title" => $this->input->post("title"),
+                    "description" => $this->input->post("description"),
+                    "url"  =>"test",
+                    "rank" => 0,
+                    "isActive" => 1,
+                    "createdAt" =>date("Y-m-d H:i:s")
+                )
+            );
+
+           if($insert){
+               echo "Kayıt işlemi başarılı.";
+           }
+           else {
+               echo "Kayıt işlemi başarısız oldu";
+           }
         }
         else
         {
