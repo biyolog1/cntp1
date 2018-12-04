@@ -2,3 +2,4 @@
 resources/
 .gitignore
 .idea/vcs.xml
+panel/uploads/
