@@ -42,4 +42,29 @@ $(document).ready(function () {
         var $data_url= $(this).data("url");
         $.post($data_url,{data : $data},function (response) {})
     })
+
+    var uploadSection  = Dropzone.forElement("#dropzone");
+
+    uploadSection.on("complete",function (file) {
+
+        var $data_url = $("#dropzone").data("url");
+
+       $.post($data_url,{},function (response) {
+
+           $(".image_list_container").html(response);
+           $('[data-switchery]').each(function(){
+               var $this = $(this),
+                   color = $this.attr('data-color') || '#188ae2',
+                   jackColor = $this.attr('data-jackColor') || '#ffffff',
+                   size = $this.attr('data-size') || 'default'
+
+               new Switchery(this, {
+                   color: color,
+                   size: size,
+                   jackColor: jackColor
+               });
+           });
+
+       });
+    })
 })

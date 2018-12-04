@@ -13,7 +13,7 @@
                     <p>Burada herhangi bir veri bulunmamaktadır. Eklemek için lütfen <a href="<?php echo base_url("Product/new_form"); ?>">tıklayınız.</a></p>
                 </div>
             <?php } else { ?>
-                <table class="table table-hover table-striped">
+                <table id="default-datatable" data-plugin="DataTable" class="table table-hover table-striped" cellspacing="0" width="100%">
                     <thead>
                     <th><i class="fa fa-reorder"></i></th>
                     <th>#id</th>
