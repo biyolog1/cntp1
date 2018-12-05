@@ -15,7 +15,7 @@
                                 href="<?php echo base_url("Product/new_form"); ?>">tıklayınız.</a></p>
                 </div>
             <?php } else { ?>
-                <table id="default-datatable" data-plugin="DataTable" class="table table-hover table-striped content-container"
+                <table id="default-datatable" data-plugin="DataTable" class="table table-hover table-bordered table-striped content-container"
                        data-options="{
 								responsive: true,
 							    iDisplayLength: 100,
@@ -25,8 +25,8 @@
                                                                             }
                                   }">
                 <thead>
-                <th><i class="fa fa-reorder"></i></th>
-                <th>#id</th>
+                <th class="order"><i class="fa fa-reorder"></i></th>
+                <th class="w50">#id</th>
                 <th>Başlık</th>
                 <th>Url</th>
                 <th>Açıklama</th>
@@ -38,9 +38,9 @@
 
                 <?php foreach ($items as $item) { ?>
 
-                    <tr id="ord-<?php echo $item->id; ?>">
-                        <td><i class="fa fa-reorder"></i></td>
-                        <td><?php echo $item->id; ?></td>
+                    <tr  id="ord-<?php echo $item->id; ?>">
+                        <td class="order"><i class="fa fa-reorder"></i></td>
+                        <td class="w50"><?php echo $item->id; ?></td>
                         <td><?php echo $item->title; ?></td>
                         <td><?php echo $item->url; ?></td>
                         <td><?php echo $item->description; ?></td>

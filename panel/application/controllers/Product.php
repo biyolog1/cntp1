@@ -63,10 +63,25 @@ class Product extends CI_Controller
 
             //TODO Alert sistemi eklenecek
             if ($insert) {
-                redirect(base_url("Product"));
+                $alert= array(
+                    "title" => "İşlem Başarılı.",
+                    "text" => "Kayıt Başarılı Şekilde Eklendi.",
+                    "type" => "success",
+
+                );
+
             } else {
-                redirect(base_url("Product"));
+                $alert= array(
+                    "title" => "BAŞARISIZ !",
+                    "text" => "Bir Aksilik Oldu Kayıt Eklenemedi.",
+                    "type" => "error",
+
+                );
             }
+
+            //işlem sonucunu sessiona yazma
+            $this->session->set_flashdata("alert", $alert);
+            redirect(base_url("Product"));
         } else {
             $viewData = new stdClass();
             $viewData->viewFolder = $this->viewFolder;
@@ -119,10 +134,24 @@ class Product extends CI_Controller
 
             //TODO Alert sistemi eklenecek
             if ($update) {
-                redirect(base_url("Product"));
+
+                $alert= array(
+                    "title" => "İşlem Başarılı.",
+                    "text" => "Kayıt Başarılı Şekilde Güncellendi.",
+                    "type" => "success",
+
+                );
+
             } else {
-                redirect(base_url("Product"));
+                $alert= array(
+                    "title" => "BAŞARISIZ !",
+                    "text" => "Bir Aksilik Oldu Kayıt Güncellenemedi.",
+                    "type" => "error",
+
+                );
             }
+            $this->session->set_flashdata("alert", $alert);
+            redirect(base_url("Product"));
         } else {
             $viewData = new stdClass();
             $item = $this->Product_model->get(
@@ -151,10 +180,47 @@ class Product extends CI_Controller
 
         //TODO alert sistemi eklenecek
         if ($delete) {
-            redirect(base_url("Product"));
+
+            $alert= array(
+                "title" => "İşlem Başarılı.",
+                "text" => "Kayıt Başarılı Şekilde Silindi.",
+                "type" => "success",
+
+            );
+
+        } else {
+            $alert= array(
+                "title" => "BAŞARISIZ !",
+                "text" => "Bir Aksilik Oldu Kayıt Silinemedi.",
+                "type" => "error",
+
+            );
+        }
+        $this->session->set_flashdata("alert", $alert);
+        redirect(base_url("Product"));
+    }
+    public function imageDelete($id, $parent_id)
+    {
+        $fileName=$this->Product_image_model->get(
+            array(
+                "id" => $id
+            )
+        );
+
+        $delete = $this->Product_image_model->delete(
+            array(
+                "id" => $id
+            )
+        );
+
+
+        //TODO alert sistemi eklenecek
+        if ($delete) {
+            unlink("uploads/{$this->viewFolder}/$fileName->img_url");
+            redirect(base_url("Product/image_form/$parent_id"));
         } else {
 
-            redirect(base_url("Product"));
+            redirect(base_url("Product/image_form/$parent_id"));
         }
     }
 
@@ -173,6 +239,7 @@ class Product extends CI_Controller
 
         }
     }
+
     public function imageIsActiveSetter($id)
     {
         if ($id) {
@@ -222,7 +289,7 @@ class Product extends CI_Controller
             $viewData->item_images=$this->Product_image_model->get_all(
                 array(
                     "product_id" => $parent_id
-                )
+                ),"rank ASC"
             );
 
             $render_html=$this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/render_elements/image_list_v", $viewData,true);
@@ -250,6 +317,25 @@ class Product extends CI_Controller
         }
     }
 
+    public function imageRankSetter()
+    {
+
+        $data = $this->input->post("data");
+        parse_str($data, $order);
+        $items = $order["ord"];
+        foreach ($items as $rank => $id) {
+            $this->Product_image_model->update(
+                array(
+                    "id" => $id,
+                    "rank !=" => $rank
+                ),
+                array(
+                    "rank" => $rank
+                )
+            );
+        }
+    }
+
     public function image_form($id)
     {
         $viewData = new stdClass();
@@ -264,7 +350,7 @@ class Product extends CI_Controller
         $viewData->item_images=$this->Product_image_model->get_all(
             array(
                 "product_id" => $id
-            )
+            ), "rank ASC"
         );
 
 
