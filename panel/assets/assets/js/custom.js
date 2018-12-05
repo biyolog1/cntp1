@@ -52,6 +52,7 @@ $(document).ready(function () {
        $.post($data_url,{},function (response) {
 
            $(".image_list_container").html(response);
+
            $('[data-switchery]').each(function(){
                var $this = $(this),
                    color = $this.attr('data-color') || '#188ae2',
@@ -66,5 +67,8 @@ $(document).ready(function () {
            });
 
        });
-    })
+
+
+    });
+
 })
