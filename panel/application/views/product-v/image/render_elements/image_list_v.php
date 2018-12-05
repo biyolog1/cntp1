@@ -10,6 +10,7 @@
         <th>Görsel</th>
         <th>Resim Adı</th>
         <th>Durumu</th>
+        <th>Kapak Resmi</th>
         <th>İşlem</th>
         </thead>
         <tbody>
@@ -24,12 +25,22 @@
                 <td><?php echo $image->img_url; ?></td>
                 <td class="w100 text-center">
                     <input
-                        data-url="<?php echo base_url("Product/isActiveSetter/"); ?>"
+                        data-url="<?php echo base_url("Product/imageIsActiveSetter/$image->id"); ?>"
                         class="isActive"
                         type="checkbox"
                         data-switchery
                         data-color="#10c469"
-                        <?php echo ($image->id) ? "checked" : ""; ?>
+                        <?php echo ($image->isActive) ? "checked" : ""; ?>
+                    />
+                </td>
+                <td class="w100 text-center">
+                    <input
+                        data-url="<?php echo base_url("Product/isCoverSetter/$image->id/$image->product_id"); ?>"
+                        class="isCover"
+                        type="checkbox"
+                        data-switchery
+                        data-color="#ff5b5b"
+                        <?php echo ($image->isCover) ? "checked" : ""; ?>
                     />
                 </td>
                 <td class="w100 text-center">

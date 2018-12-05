@@ -3,7 +3,7 @@ $(document).ready(function () {
     $(".sortable").sortable();
 
     $(".remove-btn").click(function () {
-       var  $data_url=$(this).data("url");
+        var $data_url = $(this).data("url");
         swal({
             title: 'Emin misiniz?',
             text: "Dikkat Bu işlemi geri alamazsınız!",
@@ -13,10 +13,10 @@ $(document).ready(function () {
             cancelButtonColor: '#d33',
             confirmButtonText: 'Evet, Siliyorum!',
             cancelButtonText: 'Hayır, Vazgeçtim!'
-        }).then(function(result) {
+        }).then(function (result) {
             if (result.value) {
 
-                    window.location.href=$data_url;
+                window.location.href = $data_url;
                 swal(
                     'Silindi!',
                     'Veri başarılı şekilde silindi.',
@@ -27,46 +27,70 @@ $(document).ready(function () {
         });
     })
 
-    $(".isActive").change(function () {
+    $(".content-container, .image_list_container").on('change', '.isActive',(function () {
 
-        var $data=$(this).prop("checked");
-        var $data_url= $(this).data("url");
-        if (typeof $data !=="undefined" && typeof $data_url !=="undefined"){
-            $.post($data_url,{data: $data}, function (response) {});
+        var $data = $(this).prop("checked");
+        var $data_url = $(this).data("url");
+        if (typeof $data !== "undefined" && typeof $data_url !== "undefined") {
+            $.post($data_url, {data: $data}, function (response) {
+            });
         }
-    })
+    }))
+    $(".image_list_container").on('change', '.isCover', (function () {
+        var $data = $(this).prop("checked");
+        var $data_url = $(this).data("url");
+        if (typeof $data !== "undefined" && typeof $data_url !== "undefined") {
+            $.post($data_url, {data: $data}, function (response) {
 
-    $(".sortable").on("sortupdate",function (event,ui) {
+                $(".image_list_container").html(response);
+                $('[data-switchery]').each(function () {
+                    var $this = $(this),
+                        color = $this.attr('data-color') || '#188ae2',
+                        jackColor = $this.attr('data-jackColor') || '#ffffff',
+                        size = $this.attr('data-size') || 'default'
+
+                    new Switchery(this, {
+                        color: color,
+                        size: size,
+                        jackColor: jackColor
+                    });
+                });
+            });
+        }
+    }))
+
+    $(".sortable").on("sortupdate", function (event, ui) {
 
         var $data = $(this).sortable("serialize");
-        var $data_url= $(this).data("url");
-        $.post($data_url,{data : $data},function (response) {})
+        var $data_url = $(this).data("url");
+        $.post($data_url, {data: $data}, function (response) {
+        })
     })
 
-    var uploadSection  = Dropzone.forElement("#dropzone");
+    var uploadSection = Dropzone.forElement("#dropzone");
 
-    uploadSection.on("complete",function (file) {
+    uploadSection.on("complete", function (file) {
 
         var $data_url = $("#dropzone").data("url");
 
-       $.post($data_url,{},function (response) {
+        $.post($data_url, {}, function (response) {
 
-           $(".image_list_container").html(response);
+            $(".image_list_container").html(response);
 
-           $('[data-switchery]').each(function(){
-               var $this = $(this),
-                   color = $this.attr('data-color') || '#188ae2',
-                   jackColor = $this.attr('data-jackColor') || '#ffffff',
-                   size = $this.attr('data-size') || 'default'
+            $('[data-switchery]').each(function () {
+                var $this = $(this),
+                    color = $this.attr('data-color') || '#188ae2',
+                    jackColor = $this.attr('data-jackColor') || '#ffffff',
+                    size = $this.attr('data-size') || 'default'
 
-               new Switchery(this, {
-                   color: color,
-                   size: size,
-                   jackColor: jackColor
-               });
-           });
+                new Switchery(this, {
+                    color: color,
+                    size: size,
+                    jackColor: jackColor
+                });
+            });
 
-       });
+        });
 
 
     });
