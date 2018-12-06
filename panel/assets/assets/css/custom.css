@@ -10,6 +10,10 @@ th{
     text-align: center;
     vert-align: middle;!important;
 }
+tr{
+    text-align: center;
+    vert-align: middle;!important;
+}
 .order{
     text-align: center;
     width: 50px;
@@ -23,6 +27,12 @@ th{
 .w50{
     width: 50px;
 }
+.w30{
+    width: 30px;
+}
 .sortable{
     cursor: move;
+}
+.video_url_container{
+    display: none;
 }
