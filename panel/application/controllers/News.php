@@ -261,7 +261,6 @@ class News extends CI_Controller
                 "type" => "success",
 
             );
-            unlink("uploads/{$this->viewFolder}/$fileName->img_url");
 
         } else {
             $alert= array(
@@ -309,7 +308,4 @@ class News extends CI_Controller
             );
         }
     }
-    
-
-
 }
