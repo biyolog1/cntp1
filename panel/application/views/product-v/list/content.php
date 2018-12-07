@@ -44,7 +44,7 @@
                         <td><?php echo $item->title; ?></td>
                         <td><?php echo $item->url; ?></td>
                         <td><?php echo $item->description; ?></td>
-                        <td>
+                        <td class="w100">
                             <input
                                     data-url="<?php echo base_url("Product/isActiveSetter/$item->id"); ?>"
                                     class="isActive"

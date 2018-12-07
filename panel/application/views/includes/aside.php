@@ -88,19 +88,19 @@
                     </a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url("product"); ?>">
+                    <a href="<?php echo base_url("Product"); ?>">
                         <i class="menu-icon fa fa-cubes"></i>
                         <span class="menu-text">Ürünler</span>
                     </a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url("news"); ?>">
+                    <a href="<?php echo base_url("News"); ?>">
                         <i class="menu-icon fa fa-newspaper-o"></i>
                         <span class="menu-text">Haberler</span>
                     </a>
                 </li>
                 <li>
-                    <a href="javascript:void(0)">
+                    <a href="<?php echo base_url("Brands"); ?>">
                         <i class="menu-icon fa fa-shopping-bag"></i>
                         <span class="menu-text">Markalar</span>
                     </a>
@@ -112,7 +112,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url("references"); ?>">
+                    <a href="<?php echo base_url("References"); ?>">
                         <i class="menu-icon zmdi zmdi-check zmdi-hc-lg"></i>
                         <span class="menu-text">Referanslar</span>
                     </a>

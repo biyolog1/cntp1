@@ -1,7 +1,7 @@
 <?php
-class References_model extends CI_Model {
+class Brands_model extends CI_Model {
 
-    public $tableName="references";
+    public $tableName="brands";
     public function __construct()
     {
         parent::__construct();

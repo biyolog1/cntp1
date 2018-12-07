@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <h4 class="m-b-lg">
             Referans Listesi
-            <a href="<?php echo base_url("references/new_form"); ?>" class="btn btn-outline btn-primary btn-sm pull-right">
+            <a href="<?php echo base_url("References/new_form"); ?>" class="btn btn-outline btn-primary btn-sm pull-right">
                 <i class="fa fa-plus"></i> Yeni Ekle </a>
         </h4>
     </div><!-- END column -->
@@ -13,7 +13,7 @@
                     <!-- <h5 class="alert-title">Kayıt Bulunamadı</h5> -->
                     <i class="fa fa-plus-square"> </i>
                     <p> Burada herhangi bir veri bulunmamaktadır. Eklemek için lütfen <a
-                                href="<?php echo base_url("references/new_form"); ?>">tıklayınız.</a></p>
+                                href="<?php echo base_url("References/new_form"); ?>">tıklayınız.</a></p>
                 </div>
             <?php } else { ?>
                 <table id="default-datatable" data-plugin="DataTable"
@@ -37,7 +37,7 @@
                     <th>İşlem</th>
 
                     </thead>
-                    <tbody class="sortable" data-url="<?php echo base_url("references/rankSetter/") ?>">
+                    <tbody class="sortable" data-url="<?php echo base_url("References/rankSetter/") ?>">
 
                     <?php foreach ($items as $item) { ?>
 
@@ -48,7 +48,7 @@
                             <td><?php echo $item->url; ?></td>
                             <td><?php echo $item->description; ?></td>
                             <td><img width="75" src="<?php echo base_url("uploads/$viewFolder/$item->img_url")?>" alt="" class="img-rounded"></td>
-                            <td>
+                            <td class="w100">
                                 <input
                                         data-url="<?php echo base_url("References/isActiveSetter/$item->id"); ?>"
                                         class="isActive"
@@ -60,11 +60,11 @@
                             </td>
                             <td class="w150">
                                 <button
-                                        data-url="<?php echo base_url("references/delete/$item->id"); ?>"
+                                        data-url="<?php echo base_url("References/delete/$item->id"); ?>"
                                         class="btn btn-sm btn-danger btn-outline remove-btn">
                                     <i class="fa fa-trash"></i> Sil
                                 </button>
-                                <a href="<?php echo base_url("references/update_form/$item->id"); ?>"
+                                <a href="<?php echo base_url("References/update_form/$item->id"); ?>"
                                    class="btn btn-sm btn-info btn-outline"><i class="fa fa-pencil-square-o"></i> Düzenle
                                 </a>
 
