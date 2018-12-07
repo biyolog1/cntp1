@@ -58,7 +58,7 @@
                                     <?php echo ($item->isActive) ? "checked" : ""; ?>
                                 />
                             </td>
-                            <td>
+                            <td class="w150">
                                 <button
                                         data-url="<?php echo base_url("references/delete/$item->id"); ?>"
                                         class="btn btn-sm btn-danger btn-outline remove-btn">

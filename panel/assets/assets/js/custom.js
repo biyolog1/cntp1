@@ -17,13 +17,7 @@ $(document).ready(function () {
             if (result.value) {
 
                 window.location.href = $data_url;
-                swal(
-                    'Silindi!',
-                    'Veri başarılı şekilde silindi.',
-                    'success'
-                )
-
-            }
+                            }
         });
     })
 

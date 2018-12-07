@@ -151,75 +151,9 @@ class References extends CI_Controller
         $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
     }
 
-    public function update_($id)
-    {
-        $this->load->library("form_validation");
-        $this->form_validation->set_rules("title", "Başlık", "required|trim");
-        $this->form_validation->set_message(
-            array(
-                "required" => "<b><i>{field}</i></b> alanı boş olamaz"
-            )
-        );
-        $validate = $this->form_validation->run();
-        if ($validate) {
-            $update = $this->References_model->update(
-                array(
-                    "id" => $id
-                ),
-                array(
-                    "title" => $this->input->post("title"),
-                    "description" => $this->input->post("description"),
-                    "url" => convertToSeo($this->input->post("title"))
-                )
-            );
-
-            //TODO Alert sistemi eklenecek
-            if ($update) {
-
-                $alert = array(
-                    "title" => "İşlem Başarılı.",
-                    "text" => "Kayıt Başarılı Şekilde Güncellendi.",
-                    "type" => "success",
-
-                );
-
-            } else {
-                $alert = array(
-                    "title" => "BAŞARISIZ !",
-                    "text" => "Bir Aksilik Oldu Kayıt Güncellenemedi.",
-                    "type" => "error",
-
-                );
-            }
-            $this->session->set_flashdata("alert", $alert);
-            redirect(base_url("Product"));
-        } else {
-            $viewData = new stdClass();
-            $item = $this->References_model->get(
-                array(
-                    "id" => $id
-                )
-            );
-
-            $viewData->viewFolder = $this->viewFolder;
-            $viewData->subViewFolder = "update";
-            $viewData->form_error = true;
-            $viewData->item = $item;
-
-
-            $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
-        }
-    }
-
     public function update($id)
     {
         $this->load->library("form_validation");
-
-        $news_type = $this->input->post("news_type");
-        if ($news_type == "video") {
-            $this->form_validation->set_rules("video_url", "Video Url", "required|trim");
-
-        }
 
 
         $this->form_validation->set_rules("title", "Başlık", "required|trim");
@@ -232,75 +166,55 @@ class References extends CI_Controller
         if ($validate) {
 
             //image yukleme
-            if ($news_type == "image") {
 
-                if ($_FILES["img_url"]["name"] !== "") {
-
-
-                    $file_name = convertToSeo(pathinfo($_FILES["img_url"]["name"], PATHINFO_FILENAME)) . "." . pathinfo($_FILES["img_url"]["name"], PATHINFO_EXTENSION);
-
-                    $config["allowed_types"] = "jpg|jpeg|png";
-                    $config["upload_path"] = "uploads/$this->viewFolder/";
-                    $config["file_name"] = $file_name;
+            if ($_FILES["img_url"]["name"] !== "") {
 
 
-                    $this->load->library("upload", $config);
-                    $upload = $this->upload->do_upload("img_url");
-                    if ($upload) {
-                        $uploaded_file = $this->upload->data("file_name");
-                        $data = array(
-                            "title" => $this->input->post("title"),
-                            "description" => $this->input->post("description"),
-                            "url" => convertToSeo($this->input->post("title")),
-                            "news_type" => $news_type,
-                            "img_url" => $uploaded_file,
-                            "video_url" => "#",
-                        );
+                $file_name = convertToSeo(pathinfo($_FILES["img_url"]["name"], PATHINFO_FILENAME)) . "." . pathinfo($_FILES["img_url"]["name"], PATHINFO_EXTENSION);
 
-                    } else {
-                        $alert = array(
-                            "title" => "BAŞARISIZ !",
-                            "text" => "Görsel Yüklenirken Problem Oluştu.",
-                            "type" => "error",
+                $config["allowed_types"] = "jpg|jpeg|png";
+                $config["upload_path"] = "uploads/$this->viewFolder/";
+                $config["file_name"] = $file_name;
 
-                        );
-                        $this->session->set_flashdata("alert", $alert);
-                        redirect(base_url("References/update_form/$id"));
-                        die();
 
-                    }
-
-                } else {
+                $this->load->library("upload", $config);
+                $upload = $this->upload->do_upload("img_url");
+                if ($upload) {
+                    $uploaded_file = $this->upload->data("file_name");
                     $data = array(
                         "title" => $this->input->post("title"),
                         "description" => $this->input->post("description"),
                         "url" => convertToSeo($this->input->post("title")),
+                        "img_url" => $uploaded_file,
                     );
 
+                } else {
+                    $alert = array(
+                        "title" => "BAŞARISIZ !",
+                        "text" => "Görsel Yüklenirken Problem Oluştu.",
+                        "type" => "error",
+
+                    );
+                    $this->session->set_flashdata("alert", $alert);
+                    redirect(base_url("References/update_form/$id"));
+                    die();
                 }
 
-            } else if ($news_type == "video") {
+            } else {
                 $data = array(
                     "title" => $this->input->post("title"),
                     "description" => $this->input->post("description"),
                     "url" => convertToSeo($this->input->post("title")),
-                    "news_type" => $news_type,
-                    "img_url" => "#",
-                    "video_url" => $this->input->post("video_url"),
                 );
-
             }
 
-            $update = $this->References_model->update(array(
-                "id" => $id),
-                $data
-            );
+            $update = $this->References_model->update(array("id" => $id),$data);
 
             //TODO Alert sistemi eklenecek
             if ($update) {
                 $alert = array(
                     "title" => "İşlem Başarılı.",
-                    "text" => "Haber Başarılı Şekilde Güncellendi.",
+                    "text" => "Referans Başarılı Şekilde Güncellendi.",
                     "type" => "success",
 
                 );
@@ -308,9 +222,8 @@ class References extends CI_Controller
             } else {
                 $alert = array(
                     "title" => "BAŞARISIZ !",
-                    "text" => "Bir Aksilik Oldu Haber Güncellenemedi.",
+                    "text" => "Bir Aksilik Oldu Referans Güncellenemedi.",
                     "type" => "error",
-
                 );
             }
 
@@ -324,7 +237,6 @@ class References extends CI_Controller
             $viewData->viewFolder = $this->viewFolder;
             $viewData->subViewFolder = "update";
             $viewData->form_error = true;
-            $viewData->news_type = $news_type;
 
             $viewData->item = $this->References_model->get(
                 array(
