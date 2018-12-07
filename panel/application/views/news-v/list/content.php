@@ -52,7 +52,7 @@
                             <td>
                                 <?php if ($item->news_type == "image") { ?>
 
-                                    <img height="75" src="<?php echo base_url("uploads/$viewFolder/$item->img_url")?>" alt="" class="img-rounded">
+                                    <img width="75" src="<?php echo base_url("uploads/$viewFolder/$item->img_url")?>" alt="" class="img-rounded">
                                 <?php } else if($item->news_type == "video") { ?>
                                     <iframe
                                             height="75"
