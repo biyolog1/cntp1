@@ -7,3 +7,8 @@ function convertToSeo($text){
     return strtolower(str_replace($turkce,$convert,$text));
 
 }
+function get_readable_date($date){
+    setlocale(LC_ALL, 'tr_TR.utf-8');
+    setlocale(LC_CTYPE, 'C');
+    return strftime('%e %B %Y', strtotime($date));
+}

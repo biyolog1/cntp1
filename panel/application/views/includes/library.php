@@ -44,6 +44,7 @@
         ],
         datetimepicker: [
             "<?php echo base_url("assets"); ?>/libs/bower/moment/moment.js",
+            "<?php echo base_url("assets"); ?>/libs/bower/moment/locale/tr.js",
             "<?php echo base_url("assets"); ?>/libs/bower/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css",
             "<?php echo base_url("assets"); ?>/libs/bower/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"
         ],

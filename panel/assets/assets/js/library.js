@@ -43,6 +43,7 @@ var LIBS = {
 	],
 	datetimepicker: [
 		"../panel/assets/libs/bower/moment/moment.js",
+		"../panel/assets/libs/bower/moment/locale/tr.js",
 		"../panel/assets/libs/bower/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css",
 		"../panel/assets/libs/bower/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"
 	],

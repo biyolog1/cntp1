@@ -106,7 +106,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="javascript:void(0)">
+                    <a href="<?php echo base_url("Courses"); ?>">
                         <i class="menu-icon fa fa-certificate"></i>
                         <span class="menu-text">Sertifikalar</span>
                     </a>
