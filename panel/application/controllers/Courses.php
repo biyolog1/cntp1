@@ -160,6 +160,7 @@ class Courses extends CI_Controller
 
 
         $this->form_validation->set_rules("title", "Başlık", "required|trim");
+        $this->form_validation->set_rules("event_date", "Sertifika Alınma Tarihi", "required|trim");
         $this->form_validation->set_message(
             array(
                 "required" => "<b><i>{field}</i></b> alanı boş olamaz"
@@ -187,6 +188,7 @@ class Courses extends CI_Controller
                     $data = array(
                         "title" => $this->input->post("title"),
                         "description" => $this->input->post("description"),
+                        "event_date" => $this->input->post("event_date"),
                         "url" => convertToSeo($this->input->post("title")),
                         "img_url" => $uploaded_file,
                     );
@@ -207,6 +209,7 @@ class Courses extends CI_Controller
                 $data = array(
                     "title" => $this->input->post("title"),
                     "description" => $this->input->post("description"),
+                    "event_date" => $this->input->post("event_date"),
                     "url" => convertToSeo($this->input->post("title")),
                 );
             }
@@ -217,7 +220,7 @@ class Courses extends CI_Controller
             if ($update) {
                 $alert = array(
                     "title" => "İşlem Başarılı.",
-                    "text" => "Referans Başarılı Şekilde Güncellendi.",
+                    "text" => "Sertifika Başarılı Şekilde Güncellendi.",
                     "type" => "success",
 
                 );
@@ -225,7 +228,7 @@ class Courses extends CI_Controller
             } else {
                 $alert = array(
                     "title" => "BAŞARISIZ !",
-                    "text" => "Bir Aksilik Oldu Referans Güncellenemedi.",
+                    "text" => "Bir Aksilik Oldu Sertifika Güncellenemedi.",
                     "type" => "error",
                 );
             }

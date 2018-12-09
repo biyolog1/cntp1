@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-12">
         <h4 class="m-b-lg">
-            <?php echo "<span class='text-danger'> <b><i>$item->title </i></i></b></span> Başlıklı Referansı Düzenliyorsunuz"; ?>
+            <?php echo "<span class='text-danger'> <b><i>$item->title </i></i></b></span> Başlıklı Sertifikayı Düzenliyorsunuz"; ?>
 
         </h4>
     </div><!-- END column -->
@@ -10,7 +10,7 @@
 
             <div class="widget-body">
 
-                <form action="<?php echo base_url("References/update/$item->id"); ?>" method="post"
+                <form action="<?php echo base_url("Courses/update/$item->id"); ?>" method="post"
                       enctype="multipart/form-data">
                     <div class="form-group">
                         <label>Başlık</label>
@@ -22,10 +22,15 @@
                         <?php } ?>
                     </div><!-- .form-group -->
                         <div class="row">
+                            <div class="col-md-4">
+                                <label for="datetimepicker1">Sertifika Alınma Tarihi</label>
+                                <input type="hidden" value="<?php echo $item->event_date; ?>" name="event_date" id="datetimepicker1" data-plugin="datetimepicker"
+                                       data-options="{  inline: true, viewMode: 'days', format :'YYYY-MM-DD HH:mm:ss', locale: 'tr' }"/>
+                            </div><!-- END column -->
                             <div class="col-md-1 image_upload_container">
                                 <img src="<?php echo base_url("uploads/$viewFolder/$item->img_url"); ?>" alt="" class="img-responsive">
                             </div>
-                            <div class="col-md-9 form-group image_upload_container">
+                            <div class="col-md-7 form-group image_upload_container">
                                 <label>Görsel Seçiniz</label>
                                 <input type="file" name="img_url" class="form-control">
                             </div><!-- .form-group -->
@@ -38,7 +43,7 @@
                     </div><!-- .form-group -->
 
                     <button type="submit" class="btn btn-primary btn-md btn-outline"> Güncelle</button>
-                    <a href="<?php echo base_url("References"); ?>" class="btn btn-md btn-danger btn-outline"> İptal </a>
+                    <a href="<?php echo base_url("Courses"); ?>" class="btn btn-md btn-danger btn-outline"> İptal </a>
                 </form>
             </div><!-- .widget-body -->
         </div><!-- .widget -->
