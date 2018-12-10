@@ -62,11 +62,31 @@
                                     class="btn btn-sm btn-danger btn-outline remove-btn">
                                 <i class="fa fa-trash"></i> Sil
                             </button>
+                            <?php
+
+                            if($item->gallery_type=="image"){
+                                $button_icon= "fa-picture-o";
+                                $button_colour ="btn-success";
+                                $button_name="Resimler";
+                            }
+                            else  if($item->gallery_type=="video"){
+                                $button_icon= "fa-play-circle-o";
+                                $button_colour ="btn-warning";
+                                $button_name="Videolar";
+                            }
+                            else  if($item->gallery_type=="file"){
+                                $button_icon= "fa-folder-open-o";
+                                $button_colour ="btn-dark";
+                                $button_name="Dosyalar";
+                            }
+
+                            ?>
+
                             <a href="<?php echo base_url("Galleries/update_form/$item->id"); ?>"
-                               class="btn btn-sm btn-info btn-outline"><i class="fa fa-pencil-square-o"></i> Düzenle
+                               class="btn btn-sm btn-info  btn-outline"><i class="fa fa-pencil-square-o"></i> Düzenle
                             </a>
                             <a href="<?php echo base_url("Galleries/image_form/$item->id"); ?>"
-                               class="btn btn-sm btn-dark btn-outline"><i class="fa fa-picture-o"></i> Resimler </a>
+                               class="btn btn-sm <?php echo $button_colour; ?>  btn-outline"><i class="fa <?php echo $button_icon; ?> "></i> <?php echo $button_name; ?> </a>
                         </td>
                     </tr>
 

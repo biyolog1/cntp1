@@ -12,7 +12,7 @@
                 <form action="<?php echo base_url("Galleries/save"); ?>" method="post">
                     <div class="form-group">
                         <label>Galeri Adı</label>
-                        <input class="form-control" placeholder="Galeri Adı" name="title">
+                        <input class="form-control" placeholder="Galeri Adını Giriniz" name="title">
                         <?php if (isset($form_error)) { ?>
 
                             <small class="pull-right input-form-error"> <?php echo form_error("title"); ?></small>
