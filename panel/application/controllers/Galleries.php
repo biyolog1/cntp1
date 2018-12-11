@@ -450,14 +450,16 @@ class Galleries extends CI_Controller
                 ), "rank ASC"
             );
 
+
         } else {
             $viewData->items = $this->Videos_model->get_all(
                 array(
                     "gallery_id" => $id
                 ), "rank ASC"
             );
-
         }
+        $viewData->gallery_type=$item->gallery_type;
+
 
         $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
 
@@ -468,7 +470,7 @@ class Galleries extends CI_Controller
 
         $file_name = convertToSeo(pathinfo($_FILES["file"]["name"], PATHINFO_FILENAME)) . "." . pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION);
 
-        $config["allowed_types"] =($gallery_type == "image") ? "jpg|jpeg|png" : "pdf|doc|docx|xls|xlsx|txt|exe|msi" ;
+        $config["allowed_types"] =($gallery_type == "image") ? "jpg|jpeg|png" : "pdf|doc|docx|xls|xlsx|rar|zip" ;
         $config["upload_path"] = ($gallery_type == "image") ? "uploads/$this->viewFolder/images/$folderName/" : "uploads/$this->viewFolder/files/$folderName/";
         $config["file_name"] = $file_name;
 
@@ -496,16 +498,19 @@ class Galleries extends CI_Controller
 
     }
 
-    public function refresh_file_list($id)
+    public function refresh_file_list($gallery_id, $gallery_type)
     {
         $viewData = new stdClass();
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = "image";
-        $viewData->item_images = $this->Galleries_image_model->get_all(
+        $modelName = ($gallery_type == "image") ? "Images_model" : "Files_model";
+
+        $viewData->items = $this->$modelName->get_all(
             array(
-                "product_id" => $id
+                "gallery_id" => $gallery_id
             )
         );
+        $viewData->gallery_type=$gallery_type;
 
         $render_html = $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/render_elements/file_list_v", $viewData, true);
         echo $render_html;

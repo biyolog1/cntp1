@@ -4,7 +4,7 @@
         <div class="widget">
 
             <div class="widget-body">
-                <form data-url="<?php echo base_url("Galleries/refresh_file_list/$item->id/$item->gallery_type/$item->folder_name"); ?>" action="<?php echo base_url("Galleries/file_upload/$item->id/$item->gallery_type/$item->folder_name"); ?>" id="dropzone" class="dropzone"
+                <form data-url="<?php echo base_url("Galleries/refresh_file_list/$item->id/$item->gallery_type"); ?>" action="<?php echo base_url("Galleries/file_upload/$item->id/$item->gallery_type/$item->folder_name"); ?>" id="dropzone" class="dropzone"
                       data-plugin="dropzone"
                       data-options="{ url: '<?php echo base_url("Galleries/file_upload/$item->id/$item->gallery_type/$item->folder_name"); ?>'}">
                     <div class="dz-message">

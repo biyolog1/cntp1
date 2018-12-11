@@ -36,3 +36,7 @@ tr{
 .video_url_container{
     display: none;
 }
+.ortala{
+    text-align: center;
+    vert-align: middle;!important;
+}
