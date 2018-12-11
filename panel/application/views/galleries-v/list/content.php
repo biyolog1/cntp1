@@ -9,9 +9,10 @@
     <div class="col-md-12">
         <div class="widget p-lg">
             <?php if (empty($items)) { ?>
-                <div class="alert alert-info alert-custom text-center">
+                <div class="alert alert-info text-center">
                     <!-- <h5 class="alert-title">Kayıt Bulunamadı</h5> -->
-                    <p>Burada herhangi bir veri bulunmamaktadır. Eklemek için lütfen <a
+                    <i class="fa fa-plus-square"> </i>
+                    <p> Burada herhangi bir veri bulunmamaktadır. Eklemek için lütfen <a
                                 href="<?php echo base_url("Galleries/new_form"); ?>">tıklayınız.</a></p>
                 </div>
             <?php } else { ?>
@@ -85,7 +86,7 @@
                             <a href="<?php echo base_url("Galleries/update_form/$item->id"); ?>"
                                class="btn btn-sm btn-info  btn-outline"><i class="fa fa-pencil-square-o"></i> Düzenle
                             </a>
-                            <a href="<?php echo base_url("Galleries/image_form/$item->id"); ?>"
+                            <a href="<?php echo base_url("Galleries/upload_form/$item->id"); ?>"
                                class="btn btn-sm <?php echo $button_colour; ?>  btn-outline"><i class="fa <?php echo $button_icon; ?> "></i> <?php echo $button_name; ?> </a>
                         </td>
                     </tr>

@@ -1,5 +1,5 @@
 <?php if (empty($item_images)) { ?>
-    <div class="alert alert-danger alert-custom text-center">
+    <div class="alert alert-danger text-center">
         <!-- <h5 class="alert-title">Kayıt Bulunamadı</h5> -->
         <p>Burada herhangi bir resim bulunmuyor. </p>
     </div>
@@ -14,7 +14,7 @@
         <th>Kapak Resmi</th>
         <th>İşlem</th>
         </thead>
-        <tbody class="sortable" data-url="<?php echo base_url("Product/imageRankSetter/");?>">
+        <tbody class="sortable" data-url="<?php echo base_url("Galleries/imageRankSetter/");?>">
         <?php foreach ($item_images as $image) { ?>
             <tr  id="ord-<?php echo $image->id; ?>">
                 <td class="order" ><i class="fa fa-reorder"></i></td>
@@ -27,7 +27,7 @@
                 <td><?php echo $image->img_url; ?></td>
                 <td class="w100 text-center">
                     <input
-                        data-url="<?php echo base_url("Product/imageIsActiveSetter/$image->id"); ?>"
+                        data-url="<?php echo base_url("Galleries/imageIsActiveSetter/$image->id"); ?>"
                         class="isActive"
                         type="checkbox"
                         data-switchery
@@ -37,7 +37,7 @@
                 </td>
                 <td class="w150 text-center">
                     <input
-                        data-url="<?php echo base_url("Product/isCoverSetter/$image->id/$image->product_id"); ?>"
+                        data-url="<?php echo base_url("Galleries/isCoverSetter/$image->id/$image->product_id"); ?>"
                         class="isCover"
                         type="checkbox"
                         data-switchery
@@ -47,7 +47,7 @@
                 </td>
                 <td class="w100 text-center">
                     <button
-                        data-url="<?php echo base_url("Product/imageDelete/$image->id/$image->product_id"); ?>"
+                        data-url="<?php echo base_url("Galleries/imageDelete/$image->id/$image->product_id"); ?>"
                         class="btn btn-sm btn-danger btn-outline btn-block remove-btn">
                         <i class="fa fa-trash"></i> Sil
                     </button>

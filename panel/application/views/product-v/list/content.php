@@ -9,9 +9,10 @@
     <div class="col-md-12">
         <div class="widget p-lg">
             <?php if (empty($items)) { ?>
-                <div class="alert alert-info alert-custom text-center">
+                <div class="alert alert-info text-center">
                     <!-- <h5 class="alert-title">Kayıt Bulunamadı</h5> -->
-                    <p>Burada herhangi bir veri bulunmamaktadır. Eklemek için lütfen <a
+                    <i class="fa fa-plus-square"> </i>
+                    <p> Burada herhangi bir veri bulunmamaktadır. Eklemek için lütfen <a
                                 href="<?php echo base_url("Product/new_form"); ?>">tıklayınız.</a></p>
                 </div>
             <?php } else { ?>

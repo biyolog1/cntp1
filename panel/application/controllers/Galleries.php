@@ -63,9 +63,9 @@ class Galleries extends CI_Controller
                 $path = "$path/files/$folder_name";
             }
 
-            if($gallery_type != "video"){
+            if ($gallery_type != "video") {
 
-                if(!mkdir($path, 0755)){
+                if (!mkdir($path, 0755)) {
                     $alert = array(
                         "title" => "BAŞARISIZ !",
                         "text" => "Galeri Klasörü Oluştururken Problem Oluştu. (Yetki Hatası) yada Belirtilen Klasör Sistemde Var Yenisi Oluşturulamıyor.",
@@ -140,7 +140,7 @@ class Galleries extends CI_Controller
         $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
     }
 
-    public function update($id,$gallery_type,$oldFolderName="")
+    public function update($id, $gallery_type, $oldFolderName = "")
     {
         $this->load->library("form_validation");
         $this->form_validation->set_rules("title", "Galeri Adı", "required|trim");
@@ -162,7 +162,7 @@ class Galleries extends CI_Controller
                 $path = "$path/files";
             }
 
-            if($gallery_type != "video") {
+            if ($gallery_type != "video") {
 
                 if (!rename("$path/$oldFolderName", "$path/$folder_name")) {
                     $alert = array(
@@ -229,21 +229,21 @@ class Galleries extends CI_Controller
     public function delete($id)
     {
 
-        $gallery=$this->Galleries_model->get(
+        $gallery = $this->Galleries_model->get(
             array(
                 "id" => $id
             )
         );
-        if($gallery){
-            if($gallery->gallery_type  != "video"){
-                if($gallery->gallery_type=="image"){
-                    $path="uploads/$this->viewFolder/images/$gallery->folder_name";
-                } else if($gallery->gallery_type=="file"){
-                    $path="uploads/$this->viewFolder/files/$gallery->folder_name";
+        if ($gallery) {
+            if ($gallery->gallery_type != "video") {
+                if ($gallery->gallery_type == "image") {
+                    $path = "uploads/$this->viewFolder/images/$gallery->folder_name";
+                } else if ($gallery->gallery_type == "file") {
+                    $path = "uploads/$this->viewFolder/files/$gallery->folder_name";
                 }
 
-               $delete_folder = rmdir("$path");
-                if(!$delete_folder){
+                $delete_folder = rmdir("$path");
+                if (!$delete_folder) {
                     $alert = array(
                         "title" => "BAŞARISIZ !",
                         "text" => "Bir Aksilik Oldu Kayıt Silinemedi.",
@@ -423,50 +423,70 @@ class Galleries extends CI_Controller
         }
     }
 
-    public function image_form($id)
+    public function upload_form($id)
     {
         $viewData = new stdClass();
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = "image";
-        $viewData->item = $this->Galleries_model->get(
+        $item = $this->Galleries_model->get(
             array(
                 "id" => $id
 
             )
         );
-        $viewData->item_images = $this->Galleries_image_model->get_all(
-            array(
-                "product_id" => $id
-            ), "rank ASC"
-        );
 
+        $viewData->item = $item;
+        if ($item->gallery_type == "image") {
+            $viewData->items = $this->Images_model->get_all(
+                array(
+                    "gallery_id" => $id
+                ), "rank ASC"
+            );
+
+        } else if ($item->gallery_type == "file") {
+            $viewData->items = $this->Files_model->get_all(
+                array(
+                    "gallery_id" => $id
+                ), "rank ASC"
+            );
+
+        } else {
+            $viewData->items = $this->Videos_model->get_all(
+                array(
+                    "gallery_id" => $id
+                ), "rank ASC"
+            );
+
+        }
 
         $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
 
     }
 
-    public function image_upload($id)
+    public function file_upload($gallery_id, $gallery_type, $folderName)
     {
 
         $file_name = convertToSeo(pathinfo($_FILES["file"]["name"], PATHINFO_FILENAME)) . "." . pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION);
 
-        $config["allowed_types"] = "jpg|jpeg|png";
-        $config["upload_path"] = "uploads/$this->viewFolder/";
+        $config["allowed_types"] =($gallery_type == "image") ? "jpg|jpeg|png" : "pdf|doc|docx|xls|xlsx|txt|exe|msi" ;
+        $config["upload_path"] = ($gallery_type == "image") ? "uploads/$this->viewFolder/images/$folderName/" : "uploads/$this->viewFolder/files/$folderName/";
         $config["file_name"] = $file_name;
 
 
         $this->load->library("upload", $config);
         $upload = $this->upload->do_upload("file");
         if ($upload) {
+
             $uploaded_file = $this->upload->data("file_name");
-            $this->Galleries_image_model->add(
+
+            $modelName = ($gallery_type == "image") ? "Images_model" : "Files_model";
+            $this->$modelName->add(
                 array(
-                    "img_url" => $uploaded_file,
+                    "url" => "{$config["upload_path"]}$uploaded_file",
                     "rank" => 0,
                     "isActive" => 1,
-                    "isCover" => 0,
                     "createdAt" => date("Y-m-d H:i:s"),
-                    "Galleries_id" => $id
+                    "gallery_id" => $gallery_id
                 )
             );
         } else {
@@ -476,7 +496,7 @@ class Galleries extends CI_Controller
 
     }
 
-    public function refresh_image_list($id)
+    public function refresh_file_list($id)
     {
         $viewData = new stdClass();
         $viewData->viewFolder = $this->viewFolder;
@@ -487,7 +507,7 @@ class Galleries extends CI_Controller
             )
         );
 
-        $render_html = $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/render_elements/image_list_v", $viewData, true);
+        $render_html = $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/render_elements/file_list_v", $viewData, true);
         echo $render_html;
     }
 
