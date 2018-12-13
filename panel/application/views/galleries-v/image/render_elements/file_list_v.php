@@ -13,7 +13,7 @@
         <th>Durumu</th>
         <th>İşlem</th>
         </thead>
-        <tbody class="sortable" data-url="<?php echo base_url("Galleries/imageRankSetter/"); ?>">
+        <tbody class="sortable" data-url="<?php echo base_url("Galleries/fileRankSetter/$gallery_type"); ?>">
         <?php foreach ($items as $item) { ?>
             <tr id="ord-<?php echo $item->id; ?>">
                 <td class="order"><i class="fa fa-reorder"></i></td>
@@ -60,7 +60,7 @@
                 <td><?php echo $item->url; ?></td>
                 <td class="w100 text-center">
                     <input
-                            data-url="<?php echo base_url("Galleries/imageIsActiveSetter/$item->id"); ?>"
+                            data-url="<?php echo base_url("Galleries/fileIsActiveSetter/$item->id/$gallery_type"); ?>"
                             class="isActive"
                             type="checkbox"
                             data-switchery
@@ -71,7 +71,7 @@
 
                 <td class="w100 text-center">
                     <button
-                            data-url="<?php echo base_url("Galleries/imageDelete/$item->id/$item->gallery_id"); ?>"
+                            data-url="<?php echo base_url("Galleries/fileDelete/$item->id/$item->gallery_id/$gallery_type"); ?>"
                             class="btn btn-sm btn-danger btn-outline btn-block remove-btn">
                         <i class="fa fa-trash"></i> Sil
                     </button>
