@@ -1,9 +1,8 @@
 <div class="row">
     <div class="col-md-12">
         <h4 class="m-b-lg">
-           <?php echo "<b>$gallery->title</b> galerisine ait videolar"; ?>
-            <a href="<?php echo base_url("Galleries/new_gallery_video_form/$gallery->id"); ?>"
-               class="btn btn-outline btn-primary btn-sm pull-right">
+            Kullanıcı Listesi
+            <a href="<?php echo base_url("Users/new_form"); ?>" class="btn btn-outline btn-primary btn-sm pull-right">
                 <i class="fa fa-plus"></i> Yeni Ekle </a>
         </h4>
     </div><!-- END column -->
@@ -14,7 +13,7 @@
                     <!-- <h5 class="alert-title">Kayıt Bulunamadı</h5> -->
                     <i class="fa fa-plus-square"> </i>
                     <p> Burada herhangi bir veri bulunmamaktadır. Eklemek için lütfen <a
-                                href="<?php echo base_url("Galleries/new_gallery_video_form/$gallery->id"); ?>">tıklayınız.</a></p>
+                                href="<?php echo base_url("Users/new_form"); ?>">tıklayınız.</a></p>
                 </div>
             <?php } else { ?>
                 <table id="default-datatable" data-plugin="DataTable"
@@ -28,35 +27,28 @@
                                                                             },
                                   }">
                     <thead>
-                    <th class="order"><i class="fa fa-reorder"></i></th>
                     <th class="w30">#id</th>
-                    <th>Url</th>
                     <th>Görsel</th>
+                    <th>Kullanıcı Adı</th>
+                    <th>Ad Soyad</th>
+                    <th>E-Posta</th>
                     <th>Durumu</th>
                     <th>İşlem</th>
 
                     </thead>
-                    <tbody class="sortable" data-url="<?php echo base_url("Galleries/rankGalleryVideoSetter/") ?>">
+                    <tbody>
 
                     <?php foreach ($items as $item) { ?>
 
-                        <tr id="ord-<?php echo $item->id; ?>">
-                            <td class="order"><i class="fa fa-reorder"></i></td>
+                        <tr>
                             <td class="w30"><?php echo $item->id; ?></td>
-                            <td><?php echo $item->url; ?></td>
-                            <td>
-                                <iframe
-                                        height="75"
-                                        src="https://www.youtube.com/embed/<?php echo $item->url; ?>"
-                                        frameborder="0"
-                                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                        allowfullscreen>
-
-                                </iframe>
-                            </td>
+                            <td><img width="75" src="<?php echo base_url("uploads/$viewFolder/$item->img_url")?>" alt="" class="img-rounded"></td>
+                            <td><?php echo $item->user_name; ?></td>
+                            <td><?php echo $item->full_name; ?></td>
+                            <td><?php echo $item->email; ?></td>
                             <td class="w100">
                                 <input
-                                        data-url="<?php echo base_url("Galleries/galleryVideoIsActiveSetter/$item->id"); ?>"
+                                        data-url="<?php echo base_url("Users/isActiveSetter/$item->id"); ?>"
                                         class="isActive"
                                         type="checkbox"
                                         data-switchery
@@ -64,13 +56,13 @@
                                     <?php echo ($item->isActive) ? "checked" : ""; ?>
                                 />
                             </td>
-                            <td>
+                            <td class="w150">
                                 <button
-                                        data-url="<?php echo base_url("Galleries/galleryVideoDelete/$item->id/$item->gallery_id"); ?>"
+                                        data-url="<?php echo base_url("Users/delete/$item->id"); ?>"
                                         class="btn btn-sm btn-danger btn-outline remove-btn">
                                     <i class="fa fa-trash"></i> Sil
                                 </button>
-                                <a href="<?php echo base_url("Galleries/update_gallery_video_form/$item->id"); ?>"
+                                <a href="<?php echo base_url("Users/update_form/$item->id"); ?>"
                                    class="btn btn-sm btn-info btn-outline"><i class="fa fa-pencil-square-o"></i> Düzenle
                                 </a>
 

@@ -587,7 +587,7 @@ class Galleries extends CI_Controller
         $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
     }
 
-    public function gallery_video_update($id,$gallery_id)
+    public function gallery_video_update($id, $gallery_id)
     {
         $this->load->library("form_validation");
         $this->form_validation->set_rules("url", "Video Url", "required|trim");
@@ -645,5 +645,73 @@ class Galleries extends CI_Controller
             $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
         }
     }
+
+    public function rankGalleryVideoSetter()
+    {
+
+        $data = $this->input->post("data");
+        parse_str($data, $order);
+        $items = $order["ord"];
+        foreach ($items as $rank => $id) {
+            $this->Videos_model->update(
+                array(
+                    "id" => $id,
+                    "rank !=" => $rank
+                ),
+                array(
+                    "rank" => $rank
+                )
+            );
+        }
+    }
+
+    public function galleryVideoIsActiveSetter($id)
+    {
+        if ($id) {
+            $isActive = ($this->input->post("data") === "true") ? 1 : 0;
+            $this->Videos_model->update(
+                array(
+                    "id" => $id
+                ),
+                array(
+                    "isActive" => $isActive
+                )
+            );
+
+        }
+    }
+
+    public function galleryVideoDelete($id, $gallery_id)
+    {
+
+
+        $delete = $this->Videos_model->delete(
+            array(
+                "id" => $id
+            )
+        );
+
+        //TODO alert sistemi eklenecek
+        if ($delete) {
+
+            $alert = array(
+                "title" => "İşlem Başarılı.",
+                "text" => "Kayıt Başarılı Şekilde Silindi.",
+                "type" => "success",
+
+            );
+
+        } else {
+            $alert = array(
+                "title" => "BAŞARISIZ !",
+                "text" => "Bir Aksilik Oldu Kayıt Silinemedi.",
+                "type" => "error",
+
+            );
+        }
+        $this->session->set_flashdata("alert", $alert);
+        redirect(base_url("Galleries/gallery_video_list/$gallery_id"));
+    }
+
 
 }

@@ -66,20 +66,11 @@
                         <span class="menu-text">Ayarlar</span>
                     </a>
                 </li>
-
-                <li class="has-submenu">
-                    <a href="javascript:void(0)" class="submenu-toggle">
+                <li>
+                    <a href="<?php echo base_url("Galleries"); ?>">
                         <i class="menu-icon zmdi zmdi-apps zmdi-hc-lg"></i>
                         <span class="menu-text">Medya Dosyaları</span>
-
-                        <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
                     </a>
-                    <ul class="submenu">
-                        <li><a href="<?php echo base_url("Galleries"); ?>"><span class="menu-text">Galeriler</span></a></li>
-                        <li><a href="#"><span class="menu-text">Resim Galerisi</span></a></li>
-                        <li><a href="#"><span class="menu-text">Video Galerisi</span></a></li>
-                        <li><a href="#"><span class="menu-text">Dosya Galerisi</span></a></li>
-                    </ul>
                 </li>
 
                 <li>
@@ -125,7 +116,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="javascript:void(0)">
+                    <a href="<?php echo base_url("Users"); ?>">
                         <i class="menu-icon fa fa-users"></i>
                         <span class="menu-text">Kullanıcılar</span>
                     </a>
