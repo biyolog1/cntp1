@@ -56,14 +56,18 @@
                                     <?php echo ($item->isActive) ? "checked" : ""; ?>
                                 />
                             </td>
-                            <td class="w150">
+                            <td class="w300">
                                 <button
                                         data-url="<?php echo base_url("Users/delete/$item->id"); ?>"
-                                        class="btn btn-sm btn-danger btn-outline remove-btn">
+                                        class="btn btn-sm btn-danger  remove-btn">
                                     <i class="fa fa-trash"></i> Sil
                                 </button>
                                 <a href="<?php echo base_url("Users/update_form/$item->id"); ?>"
                                    class="btn btn-sm btn-info btn-outline"><i class="fa fa-pencil-square-o"></i> Düzenle
+                                </a>
+
+                                <a href="<?php echo base_url("Users/update_password_form/$item->id"); ?>"
+                                   class="btn btn-sm btn-purple btn-outline"><i class="fa fa-key"></i> Şifre Değiştir.
                                 </a>
 
                             </td>

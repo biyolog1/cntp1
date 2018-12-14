@@ -283,16 +283,106 @@ class Users extends CI_Controller
         }
     }
 
+    public function update_password_form($id)
+    {
+        $viewData = new stdClass();
+
+        $item = $this->Users_model->get(
+            array(
+                "id" => $id
+            )
+        );
+
+
+        $viewData->viewFolder = $this->viewFolder;
+        $viewData->subViewFolder = "password";
+        $viewData->item = $item;
+
+        $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
+    }
+
+    public function update_password($id)
+    {
+        $this->load->library("form_validation");
+        $this->form_validation->set_rules("password", "Şifre", "required|trim|min_length[6]");
+        $this->form_validation->set_rules("re_password", "Şifre Tekrarı", "required|trim|min_length[6]|matches[password]");
+        $this->form_validation->set_message(
+            array(
+                "required" => "<b><i>{field}</i></b> alanı boş olamaz",
+                "matches" => "Şifre ve Şifre Tekrarı alanı uyuşmuyor",
+                "min_length" => "Şifre alanı minumum 6 karakterli olmalıdır"
+
+            )
+        );
+
+        $validate = $this->form_validation->run();
+        if ($validate) {
+
+            $update = $this->Users_model->update(array("id" => $id), array(
+                "password" => md5($this->input->post("password")),
+            ));
+
+            //TODO Alert sistemi eklenecek
+            if ($update) {
+                $alert = array(
+                    "title" => "İşlem Başarılı.",
+                    "text" => "Şifre Başarılı Şekilde Güncellendi.",
+                    "type" => "success",
+
+                );
+
+            } else {
+                $alert = array(
+                    "title" => "BAŞARISIZ !",
+                    "text" => "Bir Aksilik Oldu Şifre Güncellenemedi.",
+                    "type" => "error",
+                );
+            }
+
+            //işlem sonucunu sessiona yazma
+            $this->session->set_flashdata("alert", $alert);
+            redirect(base_url("Users"));
+        } else {
+
+
+            $viewData = new stdClass();
+            $viewData->viewFolder = $this->viewFolder;
+            $viewData->subViewFolder = "password";
+            $viewData->form_error = true;
+
+            $viewData->item = $this->Users_model->get(
+                array(
+                    "id" => $id
+                )
+            );
+
+            $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
+        }
+    }
+
     public function delete($id)
     {
+        $users=$this->Users_model->get(
+            array(
+                "id" => $id
+            )
+        );
+
         $delete = $this->Users_model->delete(
             array(
                 "id" => $id
             )
         );
 
+
+
+
+
+
         //TODO alert sistemi eklenecek
         if ($delete) {
+
+            unlink("uploads/{$this->viewFolder}/$users->img_url");
 
             $alert = array(
                 "title" => "İşlem Başarılı.",
@@ -328,6 +418,8 @@ class Users extends CI_Controller
 
         }
     }
+
+
 
 
 }

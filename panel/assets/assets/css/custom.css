@@ -18,6 +18,9 @@ tr{
     text-align: center;
     width: 50px;
 }
+.w300{
+    width: 300px;
+}
 .w100{
     width: 100px;
 }

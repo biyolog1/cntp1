@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-12">
         <h4 class="m-b-lg">
-            <?php echo "<span class='text-danger'> <b><i>$item->full_name </i></i></b></span>isimlli kullanıcıyı Düzenliyorsunuz"; ?>
+            <?php echo "<span class='text-danger'> <b><i>$item->full_name </i></i></b></span> isimlli kullanıcıyı Düzenliyorsunuz"; ?>
 
         </h4>
     </div><!-- END column -->
