@@ -109,7 +109,7 @@ class Brands extends CI_Controller
             } else {
                 $alert = array(
                     "title" => "BAŞARISIZ !",
-                    "text" => "BGörsel Yüklenirken Problem Oluştu.",
+                    "text" => "Görsel Yüklenirken Problem Oluştu.",
                     "type" => "error",
 
                 );

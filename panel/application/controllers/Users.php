@@ -56,10 +56,19 @@ class Users extends CI_Controller
             die();
         }
 
-        $this->form_validation->set_rules("title", "Başlık", "required|trim");
+        $this->form_validation->set_rules("user_name", "Kullanıcı Adı", "required|trim|is_unique[users.user_name]");
+        $this->form_validation->set_rules("full_name", "Ad Soyad", "required|trim");
+        $this->form_validation->set_rules("email", "E-Posta", "required|trim|valid_email|is_unique[users.email]");
+        $this->form_validation->set_rules("password", "Şifre", "required|trim|min_length[6]");
+        $this->form_validation->set_rules("re_password", "Şifre Tekrarı", "required|trim|min_length[6]|matches[password]");
         $this->form_validation->set_message(
             array(
-                "required" => "<b><i>{field}</i></b> alanı boş olamaz"
+                "required" => "<b><i>{field}</i></b> alanı boş olamaz",
+                "valid_email" => "Lütfen geçerli bir Eposta adresi giriniz.",
+                "is_unique" => "<b><i>{field}</i></b> alanı daha önceden kullanılmış",
+                "matches" => "Şifre ve Şifre Tekrarı alanı uyuşmuyor",
+                "min_length" => "Şifre alanı minumum 6 karakterli olmalıdır"
+
             )
         );
         $validate = $this->form_validation->run();
@@ -76,19 +85,23 @@ class Users extends CI_Controller
 
             $this->load->library("upload", $config);
             $upload = $this->upload->do_upload("img_url");
+
             if ($upload) {
                 $uploaded_file = $this->upload->data("file_name");
                 $insert = $this->Users_model->add(
+
+
                     array(
-                        "title" => $this->input->post("title"),
-                        "description" => $this->input->post("description"),
-                        "url" => convertToSeo($this->input->post("title")),
+                        "user_name" => $this->input->post("user_name"),
+                        "full_name" => $this->input->post("full_name"),
                         "img_url" => $uploaded_file,
-                        "rank" => 0,
+                        "email" => $this->input->post("email"),
+                        "password" => md5($this->input->post("password")),
                         "isActive" => 1,
                         "createdAt" => date("Y-m-d H:i:s")
                     )
                 );
+
 
                 //TODO Alert sistemi eklenecek
                 if ($insert) {
@@ -111,18 +124,22 @@ class Users extends CI_Controller
             } else {
                 $alert = array(
                     "title" => "BAŞARISIZ !",
-                    "text" => "BGörsel Yüklenirken Problem Oluştu.",
+                    "text" => "Görsel Yüklenirken Problem Oluştu.",
                     "type" => "error",
 
                 );
                 $this->session->set_flashdata("alert", $alert);
                 redirect(base_url("Users/new_form"));
                 die();
+
             }
 
             //işlem sonucunu sessiona yazma
             $this->session->set_flashdata("alert", $alert);
             redirect(base_url("Users"));
+            die();
+
+
         } else {
             $viewData = new stdClass();
             $viewData->viewFolder = $this->viewFolder;
@@ -155,13 +172,31 @@ class Users extends CI_Controller
     {
         $this->load->library("form_validation");
 
-
-        $this->form_validation->set_rules("title", "Başlık", "required|trim");
-        $this->form_validation->set_message(
+        $oldUser = $this->Users_model->get(
             array(
-                "required" => "<b><i>{field}</i></b> alanı boş olamaz"
+                "id" => $id
             )
         );
+
+        if ($oldUser->user_name != $this->input->post("user_name")) {
+
+            $this->form_validation->set_rules("user_name", "Kullanıcı Adı", "required|trim|is_unique[users.user_name]");
+
+        }
+        if ($oldUser->email != $this->input->post("email")) {
+
+            $this->form_validation->set_rules("email", "E-Posta", "required|trim|valid_email|is_unique[users.email]");
+        }
+
+        $this->form_validation->set_rules("full_name", "Ad Soyad", "required|trim");
+        $this->form_validation->set_message(
+            array(
+                "required" => "<b><i>{field}</i></b> alanı boş olamaz",
+                "valid_email" => "Lütfen geçerli bir Eposta adresi giriniz.",
+                "is_unique" => "<b><i>{field}</i></b> alanı daha önceden kullanılmış"
+            )
+        );
+
         $validate = $this->form_validation->run();
         if ($validate) {
 
@@ -182,10 +217,10 @@ class Users extends CI_Controller
                 if ($upload) {
                     $uploaded_file = $this->upload->data("file_name");
                     $data = array(
-                        "title" => $this->input->post("title"),
-                        "description" => $this->input->post("description"),
-                        "url" => convertToSeo($this->input->post("title")),
+                        "user_name" => $this->input->post("user_name"),
+                        "full_name" => $this->input->post("full_name"),
                         "img_url" => $uploaded_file,
+                        "email" => $this->input->post("email")
                     );
 
                 } else {
@@ -202,19 +237,19 @@ class Users extends CI_Controller
 
             } else {
                 $data = array(
-                    "title" => $this->input->post("title"),
-                    "description" => $this->input->post("description"),
-                    "url" => convertToSeo($this->input->post("title")),
+                    "user_name" => $this->input->post("user_name"),
+                    "full_name" => $this->input->post("full_name"),
+                    "email" => $this->input->post("email")
                 );
             }
 
-            $update = $this->Users_model->update(array("id" => $id),$data);
+            $update = $this->Users_model->update(array("id" => $id), $data);
 
             //TODO Alert sistemi eklenecek
             if ($update) {
                 $alert = array(
                     "title" => "İşlem Başarılı.",
-                    "text" => "Referans Başarılı Şekilde Güncellendi.",
+                    "text" => "Kullanıcı Başarılı Şekilde Güncellendi.",
                     "type" => "success",
 
                 );
@@ -294,22 +329,5 @@ class Users extends CI_Controller
         }
     }
 
-    public function rankSetter()
-    {
 
-        $data = $this->input->post("data");
-        parse_str($data, $order);
-        $items = $order["ord"];
-        foreach ($items as $rank => $id) {
-            $this->Users_model->update(
-                array(
-                    "id" => $id,
-                    "rank !=" => $rank
-                ),
-                array(
-                    "rank" => $rank
-                )
-            );
-        }
-    }
 }
