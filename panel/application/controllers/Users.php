@@ -9,6 +9,9 @@ class Users extends CI_Controller
         parent::__construct();
         $this->viewFolder = "users-v";
         $this->load->model("Users_model");
+        if(!get_active_user()){
+            redirect(base_url("login"));
+        }
     }
 
     public function index()

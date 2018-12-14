@@ -10,10 +10,12 @@ class Userop extends CI_Controller
         $this->viewFolder = "users-v";
         $this->load->model("Users_model");
     }
-
     public function login()
     {
 
+        if (get_active_user()) {
+            redirect(base_url());
+        }
         $viewData = new stdClass();
         $this->load->library("form_validation");
 
@@ -22,9 +24,11 @@ class Userop extends CI_Controller
 
         $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
     }
-
     public function do_login()
     {
+        if (get_active_user()) {
+            redirect(base_url());
+        }
         $this->load->library("form_validation");
 
         $this->form_validation->set_rules("user_email", "E-Posta", "required|trim|valid_email");
@@ -51,6 +55,7 @@ class Userop extends CI_Controller
                 array(
                     "email" => $this->input->post("user_email"),
                     "password" => md5($this->input->post("user_password")),
+                    "isActive" => 1
                 )
             );
             if ($user) {
@@ -77,6 +82,37 @@ class Userop extends CI_Controller
 
         }
 
+    }
+    public function logout(){
+        $this->session->unset_userdata("user");
+        redirect(base_url("login"));
+    }
+    public function send_email(){
+        $config =array(
+            "protocol"  => "smtp",
+            "smtp_host"  => "ssl://smtp.gmail.com",
+            "smtp_port"  => "465",
+            "smtp_user"  => "ulascantepe1979@gmail.com",
+            "smtp_pass"  => "ulas9710521!+-",
+            "starttls"  => true,
+            "charset"  => "utf-8",
+            "mailtype"  => "html",
+            "wordwrap"  => true,
+            "newline"  => "\r\n",
+        );
+
+        $this->load->library("email",$config);
+        $this->email->from("ulascantepe1979@gmail.com","CMS");
+        $this->email->to("ulas.cantepe@baktat.com.tr");
+        $this->email->subject("Test emaili");
+        $this->email->message("Deneme Postası");
+
+       $send=$this->email->send();
+       if($send){
+           echo "E-posta gönderildi";
+       }else {
+           echo $this->email->print_debugger();
+       }
     }
 
 }

@@ -10,6 +10,9 @@ class Product extends CI_Controller
         $this->viewFolder = "product-v";
         $this->load->model("Product_model");
         $this->load->model("Product_image_model");
+        if(!get_active_user()){
+            redirect(base_url("login"));
+        }
     }
 
     public function index()

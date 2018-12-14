@@ -12,6 +12,9 @@ class Galleries extends CI_Controller
         $this->load->model("Images_model");
         $this->load->model("Files_model");
         $this->load->model("Videos_model");
+        if(!get_active_user()){
+            redirect(base_url("login"));
+        }
     }
 
     public function index()
