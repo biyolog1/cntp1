@@ -102,7 +102,7 @@ class Userop extends CI_Controller
         );
 
         $this->load->library("email",$config);
-        $this->email->from("ulascantepe1979@gmail.com","CMS");
+        $this->email->from("ulascantepe1979@gmail.com","CNTP YAZILIM");
         $this->email->to("ulas.cantepe@baktat.com.tr");
         $this->email->subject("Test emaili");
         $this->email->message("Deneme Postası");
