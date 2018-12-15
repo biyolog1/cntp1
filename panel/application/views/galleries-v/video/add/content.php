@@ -23,8 +23,8 @@
                         </div><!-- .form-group -->
 
 
-                    <button type="submit" class="btn btn-primary btn-md btn-outline"> Kaydet </button>
-                    <a href="<?php echo base_url("Galleries/gallery_video_list/$gallery_id"); ?>" class="btn btn-md btn-danger btn-outline"> İptal </a>
+                    <button type="submit" class="btn btn-primary btn-md "> Kaydet </button>
+                    <a href="<?php echo base_url("Galleries/gallery_video_list/$gallery_id"); ?>" class="btn btn-md btn-danger "> İptal </a>
                 </form>
             </div><!-- .widget-body -->
         </div><!-- .widget -->

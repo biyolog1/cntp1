@@ -1,10 +1,12 @@
-<?php $user= get_active_user(); ?>
+<?php $user = get_active_user(); ?>
 <aside id="menubar" class="menubar light">
     <div class="app-user">
         <div class="media">
             <div class="media-left">
                 <div class="avatar avatar-md avatar-circle">
-                    <a href="javascript:void(0)"><img class="img-responsive" src="<?php echo base_url("uploads"); ?>/users-v/<?php echo $user->img_url; ?>" alt="avatar"/></a>
+                    <a href="javascript:void(0)"><img class="img-responsive"
+                                                      src="<?php echo base_url("uploads"); ?>/users-v/<?php echo $user->img_url; ?>"
+                                                      alt="avatar"/></a>
                 </div><!-- .avatar -->
             </div>
             <div class="media-body">
@@ -12,7 +14,8 @@
                     <h5><a href="javascript:void(0)" class="username"> <?php echo $user->full_name; ?></a></h5>
                     <ul>
                         <li class="dropdown">
-                            <a href="javascript:void(0)" class="dropdown-toggle usertitle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a href="javascript:void(0)" class="dropdown-toggle usertitle" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
                                 <small>İşlemler</small>
                                 <span class="caret"></span>
                             </a>
@@ -30,7 +33,8 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="text-color" href="<?php echo base_url("Users/update_password_form/$user->id"); ?>">
+                                    <a class="text-color"
+                                       href="<?php echo base_url("Users/update_password_form/$user->id"); ?>">
                                         <span class="m-r-xs"><i class="fa fa-key"></i></span>
                                         <span>Şifremi Değiştir</span>
                                     </a>
@@ -55,19 +59,16 @@
     <div class="menubar-scroll">
         <div class="menubar-scroll-inner">
             <ul class="app-menu">
-                <li class="menu-separator"><hr></li>
-                <li >
-                    <a href="javascript:void(0)" >
+                <li class="menu-separator">
+                    <hr>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
                         <i class="menu-icon zmdi zmdi-view-dashboard zmdi-hc-lg"></i>
                         <span class="menu-text">Dashboards</span>
                     </a>
                 </li>
-                <li>
-                    <a href="javascript:void(0)">
-                        <i class="menu-icon zmdi zmdi-settings zmdi-hc-lg"></i>
-                        <span class="menu-text">Ayarlar</span>
-                    </a>
-                </li>
+
                 <li>
                     <a href="<?php echo base_url("Galleries"); ?>">
                         <i class="menu-icon zmdi zmdi-apps zmdi-hc-lg"></i>
@@ -123,19 +124,28 @@
                         <span class="menu-text">Kullanıcılar</span>
                     </a>
                 </li>
+                <li class="menu-separator">
+                    <hr>
+                </li>
                 <li>
                     <a href="javascript:void(0)">
-                        <i class="menu-icon fa fa-user-plus"></i>
-                        <span class="menu-text">Aboneler</span>
+                        <i class="menu-icon zmdi zmdi-settings zmdi-hc-lg"></i>
+                        <span class="menu-text">Ayarlar</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="<?php echo base_url("Emailsettings"); ?>">
+                        <i class="menu-icon zmdi zmdi-email-open zmdi-hc-lg"></i>
+                        <span class="menu-text">E-posta Ayarları</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="<?php echo base_url("logout"); ?>">
+                        <i class="menu-icon zmdi zmdi-power-off zmdi-hc-lg"></i>
+                        <span class="menu-text">Sistemden Çıkış</span>
                     </a>
                 </li>
 
-                <li>
-                    <a href="<?php echo base_url(); ?>">
-                        <i class="menu-icon zmdi zmdi-view-web zmdi-hc-lg"></i>
-                        <span class="menu-text">Anasayfa</span>
-                    </a>
-                </li>
 
             </ul><!-- .app-menu -->
         </div><!-- .menubar-scroll-inner -->

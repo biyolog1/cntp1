@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <h4 class="m-b-lg">
             Eğitim Listesi
-            <a href="<?php echo base_url("Courses/new_form"); ?>" class="btn btn-outline btn-primary btn-sm pull-right">
+            <a href="<?php echo base_url("Courses/new_form"); ?>" class="btn  btn-primary btn-sm pull-right">
                 <i class="fa fa-plus"></i> Yeni Ekle </a>
         </h4>
     </div><!-- END column -->
@@ -62,11 +62,11 @@
                             <td class="w150">
                                 <button
                                         data-url="<?php echo base_url("Courses/delete/$item->id"); ?>"
-                                        class="btn btn-sm btn-danger btn-outline remove-btn">
+                                        class="btn btn-sm btn-danger  remove-btn">
                                     <i class="fa fa-trash"></i> Sil
                                 </button>
                                 <a href="<?php echo base_url("Courses/update_form/$item->id"); ?>"
-                                   class="btn btn-sm btn-info btn-outline"><i class="fa fa-pencil-square-o"></i> Düzenle
+                                   class="btn btn-sm btn-info "><i class="fa fa-pencil-square-o"></i> Düzenle
                                 </a>
 
                             </td>

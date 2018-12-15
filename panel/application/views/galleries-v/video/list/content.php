@@ -3,7 +3,7 @@
         <h4 class="m-b-lg">
            <?php echo "<b>$gallery->title</b> galerisine ait videolar"; ?>
             <a href="<?php echo base_url("Galleries/new_gallery_video_form/$gallery->id"); ?>"
-               class="btn btn-outline btn-primary btn-sm pull-right">
+               class="btn  btn-primary btn-sm pull-right">
                 <i class="fa fa-plus"></i> Yeni Ekle </a>
         </h4>
     </div><!-- END column -->
@@ -64,14 +64,14 @@
                                     <?php echo ($item->isActive) ? "checked" : ""; ?>
                                 />
                             </td>
-                            <td>
+                            <td class="w150">
                                 <button
                                         data-url="<?php echo base_url("Galleries/galleryVideoDelete/$item->id/$item->gallery_id"); ?>"
-                                        class="btn btn-sm btn-danger btn-outline remove-btn">
+                                        class="btn btn-sm btn-danger  remove-btn">
                                     <i class="fa fa-trash"></i> Sil
                                 </button>
                                 <a href="<?php echo base_url("Galleries/update_gallery_video_form/$item->id"); ?>"
-                                   class="btn btn-sm btn-info btn-outline"><i class="fa fa-pencil-square-o"></i> Düzenle
+                                   class="btn btn-sm btn-info "><i class="fa fa-pencil-square-o"></i> Düzenle
                                 </a>
 
                             </td>

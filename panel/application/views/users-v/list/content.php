@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <h4 class="m-b-lg">
             Kullanıcı Listesi
-            <a href="<?php echo base_url("Users/new_form"); ?>" class="btn btn-outline btn-primary btn-sm pull-right">
+            <a href="<?php echo base_url("Users/new_form"); ?>" class="btn  btn-primary btn-sm pull-right">
                 <i class="fa fa-plus"></i> Yeni Ekle </a>
         </h4>
     </div><!-- END column -->
@@ -63,11 +63,11 @@
                                     <i class="fa fa-trash"></i> Sil
                                 </button>
                                 <a href="<?php echo base_url("Users/update_form/$item->id"); ?>"
-                                   class="btn btn-sm btn-info btn-outline"><i class="fa fa-pencil-square-o"></i> Düzenle
+                                   class="btn btn-sm btn-info "><i class="fa fa-pencil-square-o"></i> Düzenle
                                 </a>
 
                                 <a href="<?php echo base_url("Users/update_password_form/$item->id"); ?>"
-                                   class="btn btn-sm btn-purple btn-outline"><i class="fa fa-key"></i> Şifre Değiştir.
+                                   class="btn btn-sm btn-purple "><i class="fa fa-key"></i> Şifre Değiştir
                                 </a>
 
                             </td>

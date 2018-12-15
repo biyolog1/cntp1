@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <h4 class="m-b-lg">
             Galeri Listesi
-            <a href="<?php echo base_url("Galleries/new_form"); ?>" class="btn btn-outline btn-primary btn-sm pull-right">
+            <a href="<?php echo base_url("Galleries/new_form"); ?>" class="btn  btn-primary btn-sm pull-right">
                 <i class="fa fa-plus"></i> Yeni Ekle </a>
         </h4>
     </div><!-- END column -->
@@ -60,7 +60,7 @@
                         <td>
                             <button
                                     data-url="<?php echo base_url("Galleries/delete/$item->id"); ?>"
-                                    class="btn btn-sm btn-danger btn-outline remove-btn">
+                                    class="btn btn-sm btn-danger  remove-btn">
                                 <i class="fa fa-trash"></i> Sil
                             </button>
                             <?php
@@ -89,10 +89,10 @@
                             ?>
 
                             <a href="<?php echo base_url("Galleries/update_form/$item->id"); ?>"
-                               class="btn btn-sm btn-info  btn-outline"><i class="fa fa-pencil-square-o"></i> Düzenle
+                               class="btn btn-sm btn-info  "><i class="fa fa-pencil-square-o"></i> Düzenle
                             </a>
                             <a href="<?php echo base_url($button_url); ?>"
-                               class="btn btn-sm <?php echo $button_colour; ?>  btn-outline"><i class="fa <?php echo $button_icon; ?> "></i> <?php echo $button_name; ?> </a>
+                               class="btn btn-sm <?php echo $button_colour; ?>  "><i class="fa <?php echo $button_icon; ?> "></i> <?php echo $button_name; ?> </a>
                         </td>
                     </tr>
 
