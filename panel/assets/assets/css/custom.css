@@ -5,14 +5,18 @@
 }
 td{
     vertical-align: middle;!important;
+
 }
 th{
     text-align: center;
-    vert-align: middle;!important;
+    vertical-align: middle;!important;
+    background-color: #4CAF50;
+    color: white;
+
 }
 tr{
     text-align: center;
-    vert-align: middle;!important;
+    vertical-align: middle;!important;
 }
 .order{
     text-align: center;
@@ -41,5 +45,5 @@ tr{
 }
 .ortala{
     text-align: center;
-    vert-align: middle;!important;
+    vertical-align: middle;!important;
 }
