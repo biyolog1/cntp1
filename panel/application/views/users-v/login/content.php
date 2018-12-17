@@ -33,7 +33,7 @@
     </div><!-- #login-form -->
 
     <div class="simple-page-footer">
-        <p><a href="password-forget.html"> Şifremi Unuttumm </a></p>
+        <p><a href="<?php echo base_url("sifremi-unuttum")  ; ?>"> Şifremi Unuttumm </a></p>
     </div><!-- .simple-page-footer -->
 
 

@@ -54,3 +54,6 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['login']="Userop/login";
 $route['logout']="Userop/logout";
+$route['sifremi-unuttum']="Userop/forget_password";
+$route['sifremi-sifirla']="Userop/reset_password";
+
