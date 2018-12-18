@@ -128,9 +128,9 @@
                     <hr>
                 </li>
                 <li>
-                    <a href="javascript:void(0)">
+                    <a href="<?php echo base_url("Settings"); ?>">
                         <i class="menu-icon zmdi zmdi-settings zmdi-hc-lg"></i>
-                        <span class="menu-text">Ayarlar</span>
+                        <span class="menu-text">Site Ayarları</span>
                     </a>
                 </li>
                 <li>
