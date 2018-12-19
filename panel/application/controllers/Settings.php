@@ -51,7 +51,7 @@ class Settings extends CI_Controller
         $this->load->library("form_validation");
 
 
-        if ($_FILES["img_url"]["name"] == "") {
+        if ($_FILES["logo"]["name"] == "") {
 
             $alert = array(
                 "title" => "BAŞARISIZ !",
@@ -64,19 +64,15 @@ class Settings extends CI_Controller
             die();
         }
 
-        $this->form_validation->set_rules("user_name", "Kullanıcı Adı", "required|trim|is_unique[users.user_name]");
-        $this->form_validation->set_rules("full_name", "Ad Soyad", "required|trim");
-        $this->form_validation->set_rules("email", "E-Posta", "required|trim|valid_email|is_unique[users.email]");
-        $this->form_validation->set_rules("password", "Şifre", "required|trim|min_length[6]");
-        $this->form_validation->set_rules("re_password", "Şifre Tekrarı", "required|trim|min_length[6]|matches[password]");
+        $this->form_validation->set_rules("company_name", "Firma Adı", "required|trim");
+        $this->form_validation->set_rules("phone_1", "Telefon 1", "required|trim");
+        $this->form_validation->set_rules("email", "E-Posta Adresi", "required|trim|valid_email");
+        $this->form_validation->set_rules("vergi_dairesi", "Vergi Dairesi", "required|trim");
+        $this->form_validation->set_rules("vergi_no", "Vergi Numarası", "required|trim");
         $this->form_validation->set_message(
             array(
                 "required" => "<b><i>{field}</i></b> alanı boş olamaz",
-                "valid_email" => "Lütfen geçerli bir Eposta adresi giriniz.",
-                "is_unique" => "<b><i>{field}</i></b> alanı daha önceden kullanılmış",
-                "matches" => "Şifre ve Şifre Tekrarı alanı uyuşmuyor",
-                "min_length" => "Şifre alanı minumum 6 karakterli olmalıdır"
-
+                "valid_email" => "Lütfen geçerli bir <b><i>{field}</i></b> giriniz"
             )
         );
         $validate = $this->form_validation->run();
@@ -84,7 +80,7 @@ class Settings extends CI_Controller
 
             //image yukleme
 
-            $file_name = convertToSeo(pathinfo($_FILES["img_url"]["name"], PATHINFO_FILENAME)) . "." . pathinfo($_FILES["img_url"]["name"], PATHINFO_EXTENSION);
+            $file_name = convertToSeo($this->input->post("company_name")) . "." . pathinfo($_FILES["logo"]["name"], PATHINFO_EXTENSION);
 
             $config["allowed_types"] = "jpg|jpeg|png";
             $config["upload_path"] = "uploads/$this->viewFolder/";
@@ -92,24 +88,31 @@ class Settings extends CI_Controller
 
 
             $this->load->library("upload", $config);
-            $upload = $this->upload->do_upload("img_url");
-
+            $upload = $this->upload->do_upload("logo");
             if ($upload) {
                 $uploaded_file = $this->upload->data("file_name");
                 $insert = $this->Settings_model->add(
-
-
                     array(
-                        "user_name" => $this->input->post("user_name"),
-                        "full_name" => $this->input->post("full_name"),
-                        "img_url" => $uploaded_file,
+                        "company_name" => $this->input->post("company_name"),
+                        "phone_1" => $this->input->post("phone_1"),
+                        "phone_2" => $this->input->post("phone_2"),
+                        "fax_1" => $this->input->post("fax_1"),
+                        "fax_2" => $this->input->post("fax_2"),
+                        "address" => $this->input->post("address"),
+                        "about_us" => $this->input->post("about_us"),
+                        "mission" => $this->input->post("mission"),
+                        "vision" => $this->input->post("vision"),
                         "email" => $this->input->post("email"),
-                        "password" => md5($this->input->post("password")),
-                        "isActive" => 1,
-                        "createdAt" => date("Y-m-d H:i:s")
+                        "facebook" => $this->input->post("facebook"),
+                        "twitter" => $this->input->post("twitter"),
+                        "instagram" => $this->input->post("instagram"),
+                        "linkedin" => $this->input->post("linkedin"),
+                        "logo" => $uploaded_file,
+                        "createdAt" => date("Y-m-d H:i:s"),
+                        "vergi_dairesi" => $this->input->post("vergi_dairesi"),
+                        "vergi_no" => $this->input->post("vergi_no")
                     )
                 );
-
 
                 //TODO Alert sistemi eklenecek
                 if ($insert) {
@@ -139,15 +142,11 @@ class Settings extends CI_Controller
                 $this->session->set_flashdata("alert", $alert);
                 redirect(base_url("Settings/new_form"));
                 die();
-
             }
 
             //işlem sonucunu sessiona yazma
             $this->session->set_flashdata("alert", $alert);
             redirect(base_url("Settings"));
-            die();
-
-
         } else {
             $viewData = new stdClass();
             $viewData->viewFolder = $this->viewFolder;
