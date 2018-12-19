@@ -1,4 +1,6 @@
 <?php $user = get_active_user(); ?>
+<?php $settings=get_settings(); ?>
+
 <aside id="menubar" class="menubar light">
     <div class="app-user">
         <div class="media">

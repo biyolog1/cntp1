@@ -1,5 +1,3 @@
-<title>Infinity - Bootstrap Admin Template</title>
-
 <link rel="stylesheet" href="<?php echo base_url("assets"); ?>/libs/bower/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="<?php echo base_url("assets"); ?>/libs/bower/material-design-iconic-font/dist/css/material-design-iconic-font.css">
 <!-- build:css ../assets/css/app.min.css -->

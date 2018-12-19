@@ -18,17 +18,18 @@ function get_readable_date($date)
 
 function get_active_user()
 {
-    $t= &get_instance();
-    $user=$t->session->userdata("user");
-    if($user)
+    $t = &get_instance();
+    $user = $t->session->userdata("user");
+    if ($user)
         return $user;
-            else
-                return false;
+    else
+        return false;
 }
 
-function send_email($toEmail="",$subject="",$message=""){
+function send_email($toEmail = "", $subject = "", $message = "")
+{
 
-    $t=&get_instance();
+    $t =& get_instance();
     $t->load->model("Emailsettings_model");
 
     $email_settings = $t->Emailsettings_model->get(
@@ -57,4 +58,24 @@ function send_email($toEmail="",$subject="",$message=""){
     $t->email->message($message);
 
     return $t->email->send();
+}
+
+function get_settings()
+{
+    $t =& get_instance();
+    $t->load->model("Settings_model");
+    if ($t->session->userdata("settings")) {
+        $settings = $t->session->userdata("settings");
+    } else {
+
+        $settings = $t->Settings_model->get();
+        if (!$settings) {
+            $settings = new stdClass();
+            $settings->company_name = "CNTP";
+            $settings->logo = "default";
+        }
+        $t->session->set_userdata("settings", $settings);
+    }
+
+    return $settings;
 }

@@ -1,3 +1,4 @@
+<?php $settings=get_settings(); ?>
 <!-- APP NAVBAR ==========-->
 <nav id="app-navbar" class="navbar navbar-inverse navbar-fixed-top primary">
 
@@ -18,9 +19,19 @@
             <span class="zmdi zmdi-hc-lg zmdi-search"></span>
         </button>
 
-        <a href="../index.html" class="navbar-brand">
-            <span class="brand-icon"><i class="fa fa-gg"></i></span>
-            <span class="brand-name">Infinity</span>
+        <a href="<?php echo base_url();?>" class="navbar-brand">
+            <span class="brand-icon">
+                <?php if($settings->logo !="default")  { ?>
+                    <img width="50" src="<?php echo  base_url("uploads/settings-v/$settings->logo"); ?>" alt="" class="img-responsive">
+
+                <?php } else {?>
+                    <img width="50" src="<?php echo base_url("assets/assets/images/infinity-logo.png") ?>" alt="" class="img-responsive">
+
+                <?php }?>
+            </span>
+            <span class="brand-name">
+            <?php echo $settings->company_name; ?>
+            </span>
         </a>
     </div><!-- .navbar-header -->
 
