@@ -91,6 +91,27 @@
                     </a>
                 </li>
                 <li>
+                    <a href="<?php echo base_url("Services"); ?>">
+                        <i class="menu-icon fa fa-cutlery"></i>
+                        <span class="menu-text">Hizmetler</span>
+                    </a>
+                </li>
+                <li class="has-submenu">
+                    <a href="javascript:void(0)" class="submenu-toggle">
+                        <i class="menu-icon fa fa-asterisk"></i>
+                        <span class="menu-text">Portfolyo İşlemleri</span>
+                        <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="<?php echo base_url("Portfolio_categories"); ?>">
+                        <span class="menu-text">Portfolyo Kategorileri</span>
+                    </a></li>
+                        <li><a href="<?php echo base_url(); ?>">
+                        <span class="menu-text">Portfolyo</span>
+                    </a></li>
+                    </ul>
+                </li>
+                <li>
                     <a href="<?php echo base_url("News"); ?>">
                         <i class="menu-icon fa fa-newspaper-o"></i>
                         <span class="menu-text">Haberler</span>
