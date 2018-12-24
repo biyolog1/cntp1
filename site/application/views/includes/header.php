@@ -85,7 +85,7 @@
 												</ul>
 											</li>
 
-											<li> <a href="<?php echo base_url(); ?>" > Ürünler </a></li>
+											<li> <a href="<?php echo base_url("urun-listesi"); ?>" > Ürünler </a></li>
 											<li> <a href="<?php echo base_url(); ?>" > Markalar </a></li>
 											<li> <a href="<?php echo base_url(); ?>" > İletişim </a></li>
 
