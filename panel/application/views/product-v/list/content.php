@@ -1,3 +1,6 @@
+<?php
+include "assets/barcode/vendor/autoload.php";
+?>
 <div class="row">
     <div class="col-md-12">
         <h4 class="m-b-lg">
@@ -46,6 +49,22 @@
                         <td><?php echo $item->title; ?></td>
                         <td><?php echo $item->url; ?></td>
                         <td>
+                            <?php
+                            if(empty($item->barcode))
+                            {
+                                echo "Barkod Eklenmedi" ;
+                            }
+                            else
+                            {
+                                $bar = new Picqer\Barcode\BarcodeGeneratorHTML();
+                                $codes=$item->barcode;
+                                $code = $bar->getBarcode("{$codes}", $bar::TYPE_EAN_13);
+                                echo $code;
+                                echo $item->barcode;
+                            }
+
+                            ?>
+
 
                         </td>
                         <td><?php echo $item->description; ?></td>

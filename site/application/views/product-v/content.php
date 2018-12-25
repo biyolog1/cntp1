@@ -1,3 +1,6 @@
+<?php
+include "assets/barcode/vendor/autoload.php";
+?>
 <div class="main-container">
 	<div class="container">
 		<div class="row">
@@ -61,12 +64,26 @@
 								<h1 class="title"><?php echo $product->title; ?></h1>
 								<div class="separator-2"></div>
 								<p><?php echo $product->description; ?></p>
-								<h3>Client Testimonial</h3>
+								<h3>Ürün Barkodu</h3>
+								<?php
+								if(empty($product->barcode))
+								{
+									echo "Barkod Eklenmedi" ;
+								}
+								else
+								{
+									$bar = new Picqer\Barcode\BarcodeGeneratorHTML();
+									$codes=$product->barcode;
+									$code = $bar->getBarcode("{$codes}", $bar::TYPE_EAN_13);
+									echo $code;
+									echo $product->barcode;
+								}
+								?>
+								<br>
 								<blockquote class="margin-clear">
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, magni, eos!
-										Dignissimos voluptatum sequi ea sunt, nisi, doloribus facere asperiores dolorem
-										quos laboriosam porro, velit in pariatur necessitatibus. Quisquam, mollitia!</p>
-									<footer><cite title="Source Title">Happy Client </cite></footer>
+									<?php echo $product->content; ?>
+									<br>
+									<footer><cite title="Source Title">SUNTAT </cite></footer>
 								</blockquote>
 							</div>
 							<!-- main end -->
