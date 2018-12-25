@@ -10,25 +10,38 @@ class Product extends CI_Controller
         $this->viewFolder = "product-v";
         $this->load->model("Product_model");
         $this->load->model("Product_image_model");
-        if(!get_active_user()){
+        if (!get_active_user()) {
             redirect(base_url("login"));
         }
     }
 
     public function index()
     {
+
+
         $viewData = new stdClass();
         /** Tabloadn Verilerin Getirilmesi*/
         $items = $this->Product_model->get_all(
             array(), "rank ASC"
 
         );
+
         /** View'e gönderilecek değişkenlerin set edilmesi */
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = "list";
 
         $viewData->items = $items;
         $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
+    }
+
+    private function set_barcode($code)
+    {
+        //load library
+        $this->load->library('zend');
+        //load in folder Zend
+        $this->zend->load('Zend/Barcode');
+        //generate barcode
+        Zend_Barcode::render('ean13', 'image', array('text' => $code), array());
     }
 
     public function new_form()
@@ -58,6 +71,8 @@ class Product extends CI_Controller
                     "title" => $this->input->post("title"),
                     "description" => $this->input->post("description"),
                     "url" => convertToSeo($this->input->post("title")),
+                    "barcode" => $this->input->post("barcode"),
+                    "content" => $this->input->post("content"),
                     "rank" => 0,
                     "isActive" => 1,
                     "createdAt" => date("Y-m-d H:i:s")
@@ -66,7 +81,7 @@ class Product extends CI_Controller
 
             //TODO Alert sistemi eklenecek
             if ($insert) {
-                $alert= array(
+                $alert = array(
                     "title" => "İşlem Başarılı.",
                     "text" => "Kayıt Başarılı Şekilde Eklendi.",
                     "type" => "success",
@@ -74,7 +89,7 @@ class Product extends CI_Controller
                 );
 
             } else {
-                $alert= array(
+                $alert = array(
                     "title" => "BAŞARISIZ !",
                     "text" => "Bir Aksilik Oldu Kayıt Eklenemedi.",
                     "type" => "error",
@@ -131,14 +146,16 @@ class Product extends CI_Controller
                 array(
                     "title" => $this->input->post("title"),
                     "description" => $this->input->post("description"),
-                    "url" => convertToSeo($this->input->post("title"))
+                    "url" => convertToSeo($this->input->post("title")),
+                    "barcode" => $this->input->post("barcode"),
+                    "content" => $this->input->post("content")
                 )
             );
 
             //TODO Alert sistemi eklenecek
             if ($update) {
 
-                $alert= array(
+                $alert = array(
                     "title" => "İşlem Başarılı.",
                     "text" => "Kayıt Başarılı Şekilde Güncellendi.",
                     "type" => "success",
@@ -146,7 +163,7 @@ class Product extends CI_Controller
                 );
 
             } else {
-                $alert= array(
+                $alert = array(
                     "title" => "BAŞARISIZ !",
                     "text" => "Bir Aksilik Oldu Kayıt Güncellenemedi.",
                     "type" => "error",
@@ -184,7 +201,7 @@ class Product extends CI_Controller
         //TODO alert sistemi eklenecek
         if ($delete) {
 
-            $alert= array(
+            $alert = array(
                 "title" => "İşlem Başarılı.",
                 "text" => "Kayıt Başarılı Şekilde Silindi.",
                 "type" => "success",
@@ -192,7 +209,7 @@ class Product extends CI_Controller
             );
 
         } else {
-            $alert= array(
+            $alert = array(
                 "title" => "BAŞARISIZ !",
                 "text" => "Bir Aksilik Oldu Kayıt Silinemedi.",
                 "type" => "error",
@@ -202,9 +219,10 @@ class Product extends CI_Controller
         $this->session->set_flashdata("alert", $alert);
         redirect(base_url("Product"));
     }
+
     public function imageDelete($id, $parent_id)
     {
-        $fileName=$this->Product_image_model->get(
+        $fileName = $this->Product_image_model->get(
             array(
                 "id" => $id
             )
@@ -289,13 +307,13 @@ class Product extends CI_Controller
             $viewData = new stdClass();
             $viewData->viewFolder = $this->viewFolder;
             $viewData->subViewFolder = "image";
-            $viewData->item_images=$this->Product_image_model->get_all(
+            $viewData->item_images = $this->Product_image_model->get_all(
                 array(
                     "product_id" => $parent_id
-                ),"rank ASC"
+                ), "rank ASC"
             );
 
-            $render_html=$this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/render_elements/image_list_v", $viewData,true);
+            $render_html = $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/render_elements/image_list_v", $viewData, true);
             echo $render_html;
 
         }
@@ -350,7 +368,7 @@ class Product extends CI_Controller
 
             )
         );
-        $viewData->item_images=$this->Product_image_model->get_all(
+        $viewData->item_images = $this->Product_image_model->get_all(
             array(
                 "product_id" => $id
             ), "rank ASC"
@@ -361,9 +379,10 @@ class Product extends CI_Controller
 
     }
 
-    public function image_upload($id){
+    public function image_upload($id)
+    {
 
-        $file_name= convertToSeo(pathinfo($_FILES["file"]["name"],PATHINFO_FILENAME)).".". pathinfo($_FILES["file"]["name"],PATHINFO_EXTENSION);
+        $file_name = convertToSeo(pathinfo($_FILES["file"]["name"], PATHINFO_FILENAME)) . "." . pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION);
 
         $config["allowed_types"] = "jpg|jpeg|png";
         $config["upload_path"] = "uploads/$this->viewFolder/";
@@ -373,37 +392,37 @@ class Product extends CI_Controller
         $this->load->library("upload", $config);
         $upload = $this->upload->do_upload("file");
         if ($upload) {
-            $uploaded_file=$this->upload->data("file_name");
+            $uploaded_file = $this->upload->data("file_name");
             $this->Product_image_model->add(
                 array(
                     "img_url" => $uploaded_file,
                     "rank" => 0,
                     "isActive" => 1,
-                    "isCover" =>0,
+                    "isCover" => 0,
                     "createdAt" => date("Y-m-d H:i:s"),
                     "product_id" => $id
                 )
             );
-        }
-        else {
+        } else {
             echo "İşlem Başarısız.";
 
         }
 
     }
 
-    public function refresh_image_list($id){
+    public function refresh_image_list($id)
+    {
         $viewData = new stdClass();
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = "image";
-        $viewData->item_images=$this->Product_image_model->get_all(
+        $viewData->item_images = $this->Product_image_model->get_all(
             array(
                 "product_id" => $id
             )
         );
 
-        $render_html=$this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/render_elements/image_list_v", $viewData,true);
-echo $render_html;
+        $render_html = $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/render_elements/image_list_v", $viewData, true);
+        echo $render_html;
     }
 
 }

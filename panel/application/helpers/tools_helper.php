@@ -91,3 +91,5 @@ function get_category_title($category_id = 0){
     else
         return "<b style='color: red'>Tanımlı Değil</b>";
 }
+
+

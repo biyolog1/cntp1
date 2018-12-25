@@ -30,6 +30,7 @@
                 <th class="w50">#id</th>
                 <th>Başlık</th>
                 <th>Url</th>
+                <th>Barkod</th>
                 <th>Açıklama</th>
                 <th>Durumu</th>
                 <th>İşlem</th>
@@ -44,6 +45,9 @@
                         <td class="w50"><?php echo $item->id; ?></td>
                         <td><?php echo $item->title; ?></td>
                         <td><?php echo $item->url; ?></td>
+                        <td>
+
+                        </td>
                         <td><?php echo $item->description; ?></td>
                         <td class="w100">
                             <input
@@ -55,7 +59,7 @@
                                 <?php echo ($item->isActive) ? "checked" : ""; ?>
                             />
                         </td>
-                        <td>
+                        <td class="w300">
                             <button
                                     data-url="<?php echo base_url("Product/delete/$item->id"); ?>"
                                     class="btn btn-sm btn-danger  remove-btn">
