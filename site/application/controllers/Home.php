@@ -73,10 +73,8 @@ class Home extends CI_Controller {
 
 	}
 	public function portfolio_list(){
-
 		$viewData = new stdClass();
 		$viewData->viewFolder = "portfolio_list-v";
-
 		$this->load->model("Portfolios_model");
 		$this->load->helper("text");
 
@@ -85,10 +83,7 @@ class Home extends CI_Controller {
 				"isActive"  => 1
 			), "rank ASC"
 		);
-
-
 		$this->load->view($viewData->viewFolder, $viewData);
-
 	}
 
 
