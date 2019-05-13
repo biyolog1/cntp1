@@ -34,3 +34,22 @@ function get_portfolio_category_title($id){
 	);
 	return(empty($portfolio)) ? false: $portfolio->title;
 }
+function get_portfolio_cover_image($id)
+{
+	$t =& get_instance();
+	$t->load->model("Portfolios_image_model");
+	$cover_image = $t->Portfolios_image_model->get(
+		array(
+			"isCover" => 1,
+			"portfolios_id" => $id
+		)
+	);
+	if (empty($cover_image)) {
+		$cover_image = $t->Portfolios_image_model->get(
+			array(
+				"portfolios_id" => $id
+			)
+		);
+	}
+	return !empty($cover_image) ? $cover_image->img_url : "";
+}

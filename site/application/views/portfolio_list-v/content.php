@@ -21,9 +21,15 @@
 					<div class="row">
 						<div class="col-md-6 col-lg-4 col-xl-3">
 							<div class="overlay-container">
-								<img src="<?php echo base_url("assets/images/portfolio-1.jpg");?>" alt="">
+
+								<?php
+								$image= get_portfolio_cover_image($portfolio->id);
+								$image = ($image) ? base_url("panel/uploads/portfolios-v/$image") : base_url("assets/images/portfolio-1.jpg");
+								?>
+								<img src="<?php echo $image; ?>" alt="<?php echo $portfolio->title; ?>">
+
 								<div class="overlay-to-top">
-									<p class="small margin-clear"><em>Some info <br> Lorem ipsum dolor sit</em></p>
+									<p class="small margin-clear"><em><?php echo $portfolio->title; ?></em></p>
 								</div>
 							</div>
 						</div>
