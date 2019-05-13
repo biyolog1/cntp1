@@ -4,7 +4,7 @@
 		<p>Lezzet listemiz</p>
 		<div class="separator-2"></div>
 		<div class="row">
-			<?php foreach ($products as $product) {?>
+			<?php foreach ($products as $product) { ?>
 			<div class="col-sm-4">
 				<div class="image-box style-2 mb-20 bordered light-gray-bg">
 					<div class="overlay-container overlay-visible">
