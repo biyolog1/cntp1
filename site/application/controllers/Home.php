@@ -72,6 +72,7 @@ class Home extends CI_Controller {
 		$this->load->view($viewData->viewFolder, $viewData);
 
 	}
+
 	public function portfolio_list(){
 		$viewData = new stdClass();
 		$viewData->viewFolder = "portfolio_list-v";
@@ -85,6 +86,39 @@ class Home extends CI_Controller {
 		);
 
 		$this->load->view($viewData->viewFolder, $viewData);
+	}
+
+	public function portfolio_detail($url = ""){
+		$viewData = new stdClass();
+		$viewData->viewFolder = "portfolios-v";
+
+		$this->load->model("Portfolios_model");
+		$this->load->model("Portfolios_image_model");
+		$this->load->helper("text");
+
+		$viewData->portfolios = $this->Portfolios_model->get(
+			array(
+				"isActive"  => 1,
+				"url"       => $url
+			)
+		);
+
+		$viewData->portfolio_images=$this->Portfolios_image_model->get_all(
+			array(
+				"isActive" =>1,
+				"portfolios_id" =>$viewData->portfolios->id,
+			), "rank ASC"
+		);
+
+		$viewData->other_portfolios = $this->Portfolios_model->get_all(
+			array(
+				"isActive"  => 1,
+				"id !="     => $viewData->portfolios->id
+			), "rand()", array("start" => 0, "count" => 3)
+		);
+
+		$this->load->view($viewData->viewFolder, $viewData);
+
 	}
 
 

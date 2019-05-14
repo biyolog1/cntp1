@@ -43,8 +43,8 @@
 									<?php } ?>
 
 								<div class="separator-2"></div>
-								<p class="mb-10"><?php echo $portfolio->description; ?></p>
-								<a href="portfolio-item.html" class="btn btn-default btn-hvr hvr-shutter-out-horizontal margin-clear">Detay<i class="fa fa-arrow-right pl-10"></i></a>
+								<p class="mb-10"><?php echo strip_tags($portfolio->description); ?></p>
+								<a href="<?php echo base_url("portfolyo-detay/$portfolio->url") ?>" class="btn btn-default btn-hvr hvr-shutter-out-horizontal margin-clear">Detay<i class="fa fa-arrow-right pl-10"></i></a>
 							</div>
 						</div>
 					</div>
