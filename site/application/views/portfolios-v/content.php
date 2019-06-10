@@ -25,10 +25,10 @@ include "assets/barcode/vendor/autoload.php";
 												<!-- main image -->
 												<img
 													src="<?php echo base_url("panel/uploads/portfolios-v/$image->img_url"); ?>"
-													alt="<?php echo $portfolios->title; ?>" data-bgposition="center top"
-													data-bgrepeat="no-repeat" data-bgfit="cover" class="rev-slidebg">
+													alt="<?php echo $portfolios->title; ?>" data-bgposition="center center"
+													data-bgrepeat="no-repeat" data-bgfit="box" class="rev-slidebg">
 												<!-- Transparent Background -->
-												<div class="tp-caption dark-translucent-bg"
+												<div class="tp-caption  dark-translucent-bg"
 													 data-x="center"
 													 data-y="center"
 													 data-start="0"
@@ -60,33 +60,51 @@ include "assets/barcode/vendor/autoload.php";
 
 							<!-- main start -->
 							<!-- ================ -->
-							<div class="main col-md-12">
+							<div class="main col-md-8">
 								<h1 class="title"><?php echo $portfolios->title; ?></h1>
 								<div class="separator-2"></div>
 								<p><?php echo $portfolios->description; ?></p>
-								 <h3>Ürün Barkodu</h3>
-								 <?php
-								 if(empty($portfolios->barcode))
-								 {
-								 	echo "Barkod Eklenmedi" ;
-								 }
-								 else
-								 {
-									$bar = new Picqer\Barcode\BarcodeGeneratorHTML();
-									$codes=$portfolios->barcode;
-								 	$code = $bar->getBarcode("{$codes}", $bar::TYPE_EAN_13);
-								 	echo $code;
-								 	echo $portfolios->barcode;
-								 }
-								 ?>
 								 <br>
+								<br>
+								<footer><cite title="Source Title">- Ürün İçeriği </cite></footer>
 								<blockquote class="margin-clear">
-									<?php echo $portfolios->content; ?>
-									<br>
-									//<footer><cite title="Source Title">SUNTAT </cite></footer>
+								<?php echo $portfolios->content; ?>
 								</blockquote>
 							</div>
 							<!-- main end -->
+
+
+							<aside class="col-md-4 col-lg-3 col-lg-offset-1">
+								<div class="sidebar">
+									<div class="block clearfix">
+										<h3 class="title">Ürün Detayları</h3>
+										<div class="separator-2"></div>
+										<ul class="list margin-clear">
+											<li><strong>Kategori: </strong> <span class="text-right"><?php echo get_portfolio_category_title($portfolios->category_id); ?></span></li>
+											<li><strong>Barkod: </strong> <span class="text-right"><?php
+													if(empty($portfolios->barcode))
+													{
+														echo "Barkod Eklenmedi" ;
+													}
+													else
+													{
+														$bar = new Picqer\Barcode\BarcodeGeneratorHTML();
+														$codes=$portfolios->barcode;
+														$code = $bar->getBarcode("{$codes}", $bar::TYPE_EAN_13);
+														echo $code;
+														echo $portfolios->barcode;
+													}
+													?></span></li>
+											<li><strong>Tarih: </strong> <span class="text-right"><?php echo get_readable_date($portfolios->finishedAt); ?></span></li>
+
+											<li><strong>Üretim Yeri: </strong> <span class="text-right"><?php echo  $portfolios->place; ?></span></li>
+											<li><strong>URL: </strong> <span class="text-right"><a href="<?php echo $portfolios->portfolio_url; ?>"><?php echo $portfolios->portfolio_url; ?></a></span></li>
+										</ul>
+										<a href="#" class="btn btn-animated btn-default btn-lg">External Link <i class="fa fa-external-link"></i></a>
+
+									</div>
+								</div>
+							</aside>
 						</div>
 					</div>
 				</section>
