@@ -11,12 +11,12 @@
 
 				<!-- page-title start -->
 				<!-- ================ -->
-				<h1 class="page-title">Portfolyo Listesi</h1>
+				<h1 class="page-title">Sertifika Listesi</h1>
 				<div class="separator-2"></div>
 				<!-- page-title end -->
-				<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit Illo quaerat <br> commodi excepturi dignissimos!</p>
+				<p class="lead">Sertifika ve Ödüllerimizi Listedn görebilirsiniz!</p>
 
-				<?php foreach ($portfolios as $portfolio){ ?>
+				<?php foreach ($courses as $course){ ?>
 				   <div class="image-box style-3-b">
 					<div class="row">
 						<div class="col-md-6 col-lg-4 col-xl-3">

@@ -1,5 +1,5 @@
 <?php
-class Courses_model extends CI_Model {
+class Course_model extends CI_Model {
 
     public $tableName="courses";
     public function __construct()

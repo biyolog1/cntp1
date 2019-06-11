@@ -9,6 +9,7 @@ class Home extends CI_Controller {
 		parent::__construct();
 
 		$this->viewFolder = "homepage";
+		$this->load->helper("text");
 
 	}
 
@@ -26,7 +27,7 @@ class Home extends CI_Controller {
 		$viewData->viewFolder = "product_list-v";
 
 		$this->load->model("Product_model");
-		$this->load->helper("text");
+
 
 		$viewData->products = $this->Product_model->get_all(
 			array(
@@ -46,7 +47,7 @@ class Home extends CI_Controller {
 
 		$this->load->model("Product_model");
 		$this->load->model("Product_image_model");
-		$this->load->helper("text");
+
 
 		$viewData->product = $this->Product_model->get(
 			array(
@@ -77,7 +78,7 @@ class Home extends CI_Controller {
 		$viewData = new stdClass();
 		$viewData->viewFolder = "portfolio_list-v";
 		$this->load->model("Portfolios_model");
-		$this->load->helper("text");
+
 
 		$viewData->portfolios = $this->Portfolios_model->get_all(
 			array(
@@ -94,7 +95,7 @@ class Home extends CI_Controller {
 
 		$this->load->model("Portfolios_model");
 		$this->load->model("Portfolios_image_model");
-		$this->load->helper("text");
+
 
 		$viewData->portfolios = $this->Portfolios_model->get(
 			array(
@@ -119,8 +120,20 @@ class Home extends CI_Controller {
 
 		$this->load->view($viewData->viewFolder, $viewData);
 
-	}
 
+	}
+public function  course_list(){
+		$viewData=new stdClass();
+		$viewData->viewFolder="course_list_v";
+		$this->load->model("course_model");
+		$viewData->courses=$this->course_model->get_all(
+			array(
+				"isActive"  => 1,
+				"id !="     => $viewData->portfolios->id
+			), "rank ASC, event_date ASC"
+		);
+	$this->load->view($viewData->viewFolder, $viewData);
+}
 
 
 
