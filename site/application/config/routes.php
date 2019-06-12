@@ -56,4 +56,4 @@ $route['urun-listesi'] = "Home/product_list";
 $route['portfolyo-listesi'] = "Home/portfolio_list";
 $route["urun-detay/(:any)"] = "Home/product_detail/$1";
 $route["portfolyo-detay/(:any)"] = "Home/portfolio_detail/$1";
-$route["sertifika-listesi"] = "Home/course_list";
+$route['sertifika-listesi'] = "Home/course_list";
