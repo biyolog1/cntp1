@@ -68,7 +68,8 @@
 											<li class="dropdown ">
 												<a class="dropdown-toggle" data-toggle="dropdown" href="#">Hakkımızda</a>
 												<ul class="dropdown-menu">
-													<li ><a href="features-dark-page.html">Hakkımızda</a></li>
+													<li ><a href="<?php echo base_url("sirketler"); ?>">Şirketler</a></li>
+													<li ><a href="<?php echo base_url("hakkimizda"); ?>">Hakkımızda</a></li>
 													<li ><a href="features-dark-page.html">Misyonumuz</a></li>
 													<li ><a href="features-dark-page.html">Vizyonumuz</a></li>
 													<li ><a href="<?php echo base_url("portfolyo-listesi"); ?>">Portfolyo</a></li>
@@ -86,7 +87,8 @@
 											</li>
 
 											<li> <a href="<?php echo base_url("urun-listesi"); ?>" > Ürünler </a></li>
-											<li> <a href="<?php echo base_url(); ?>" > Markalar </a></li>
+											<li> <a href="<?php echo base_url("referans-listesi"); ?>" > Bayilerimiz </a></li>
+											<li> <a href="<?php echo base_url("markalar"); ?>" > Markalar </a></li>
 											<li> <a href="<?php echo base_url(); ?>" > İletişim </a></li>
 
 

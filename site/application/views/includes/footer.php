@@ -1,3 +1,5 @@
+
+<?php $settings = get_settings(); ?>
 <footer id="footer" class="clearfix dark">
 
     <!-- .footer start -->
@@ -173,7 +175,7 @@
             <div class="subfooter-inner">
                 <div class="row">
                     <div class="col-md-12">
-                        <p class="text-center">Copyright © 2017 The Project by <a target="_blank" href="http://htmlcoder.me">HtmlCoder</a>. All Rights Reserved</p>
+                        <p class="text-center">Copyright © <?php echo date("Y") . " " .  $settings->company_name; ?> | <a target="_blank" href="http://www.cntpyazilim.com">Ulaş Cantepe</a>. Tüm Hakları Saklıdır</p>
                     </div>
                 </div>
             </div>

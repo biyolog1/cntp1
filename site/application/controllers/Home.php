@@ -122,7 +122,7 @@ class Home extends CI_Controller {
 
 
 	}
-public function  course_list(){
+	public function  course_list(){
 		$viewData=new stdClass();
 		$viewData->viewFolder="course_list-v";
 		$this->load->model("Course_model");
@@ -133,7 +133,82 @@ public function  course_list(){
 		);
 	$this->load->view($viewData->viewFolder, $viewData);
 }
+	public function course_detail($url = ""){
+		$viewData = new stdClass();
+		$viewData->viewFolder = "course-v";
+
+		$this->load->model("Course_model");
+
+		$viewData->course = $this->Course_model->get(
+			array(
+				"isActive"  => 1,
+				"url"       => $url
+			)
+		);
+
+		$viewData->other_courses = $this->Course_model->get_all(
+			array(
+				"isActive"  => 1,
+				"id !="     => $viewData->course->id
+			), "rand()", array("start" => 0, "count" => 3)
+		);
+
+		$this->load->view($viewData->viewFolder, $viewData);
 
 
+	}
+	public function  reference_list()
+	{
+		$viewData = new stdClass();
+		$viewData->viewFolder = "reference_list-v";
+		$this->load->model("References_model");
+		$viewData->references = $this->References_model->get_all(
+			array(
+				"isActive" => 1
+			), "rank ASC"
+		);
+
+		$this->load->view($viewData->viewFolder, $viewData);
+	}
+
+	public function  brand_list()
+	{
+		$viewData = new stdClass();
+		$viewData->viewFolder = "brand_list-v";
+		$this->load->model("Brands_model");
+		$viewData->brands = $this->Brands_model->get_all(
+			array(
+				"isActive" => 1
+			), "rank ASC"
+		);
+
+		$this->load->view($viewData->viewFolder, $viewData);
+	}
+
+	public function  service_list()
+	{
+		$viewData = new stdClass();
+		$viewData->viewFolder = "service_list-v";
+		$this->load->model("Services_model");
+		$viewData->services = $this->Services_model->get_all(
+			array(
+				"isActive" => 1
+			), "rank ASC"
+		);
+
+		$this->load->view($viewData->viewFolder, $viewData);
+	}
+
+
+	public function about_us(){
+
+		$viewData = new stdClass();
+		$viewData->viewFolder = "about-v";
+		$this->load->model("Settings_model");
+		$viewData->settings = $this->Settings_model->get();
+
+		$this->load->view($viewData->viewFolder, $viewData);
+
+	}
 
 }

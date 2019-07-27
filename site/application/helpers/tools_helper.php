@@ -53,3 +53,15 @@ function get_portfolio_cover_image($id)
 	}
 	return !empty($cover_image) ? $cover_image->img_url : "";
 }
+
+function get_settings(){
+	$t = &get_instance();
+	$settings = $t->session->userdata("settings");
+	if(empty($settings)){
+		echo "db den çekilecek...";
+		$t->load->model("Settings_model");
+		$settings = $t->Settings_model->get();
+		$t->session->set_userdata("settings", $settings);
+	}
+	return $settings;
+}
