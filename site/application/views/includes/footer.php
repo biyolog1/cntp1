@@ -148,17 +148,27 @@
                             <div class="separator-2"></div>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium odio voluptatem necessitatibus illo vel dolorum soluta.</p>
                             <ul class="social-links circle animated-effect-1">
-                                <li class="facebook"><a target="_blank" href="http://www.facebook.com"><i class="fa fa-facebook"></i></a></li>
-                                <li class="twitter"><a target="_blank" href="http://www.twitter.com"><i class="fa fa-twitter"></i></a></li>
-                                <li class="googleplus"><a target="_blank" href="http://plus.google.com"><i class="fa fa-google-plus"></i></a></li>
-                                <li class="linkedin"><a target="_blank" href="http://www.linkedin.com"><i class="fa fa-linkedin"></i></a></li>
-                                <li class="xing"><a target="_blank" href="http://www.xing.com"><i class="fa fa-xing"></i></a></li>
+								<?php if($settings->facebook){  ?>
+									<li class="facebook"><a target="_blank" href="<?php echo $settings->facebook; ?>"><i class="fa fa-facebook"></i></a></li>
+								<?php }  ?>
+								<?php if($settings->twitter){  ?>
+                                <li class="twitter"><a target="_blank" href="<?php echo $settings->twitter; ?>"><i class="fa fa-twitter"></i></a></li>
+								<?php }  ?>
+
+								<?php if($settings->instagram){  ?>
+								<li class="instagram"><a target="_blank" href="<?php echo $settings->instagram; ?>"><i class="fa fa-instagram"></i></a></li>
+								<?php }  ?>
+
+								<?php if($settings->linkedin){  ?>
+                                <li class="linkedin"><a target="_blank" href="<?php echo $settings->linkedin; ?>"><i class="fa fa-linkedin"></i></a></li>
+								<?php }  ?>
+
                             </ul>
                             <div class="separator-2"></div>
                             <ul class="list-icons">
-                                <li><i class="fa fa-map-marker pr-10 text-default"></i> One infinity loop, 54100</li>
-                                <li><i class="fa fa-phone pr-10 text-default"></i> +00 1234567890</li>
-                                <li><a href="mailto:info@theproject.com"><i class="fa fa-envelope-o pr-10"></i>info@theproject.com</a></li>
+                                <li><i class="fa fa-map-marker pr-10 text-default"></i> <?php echo $settings->address; ?></li>
+                                <li><i class="fa fa-phone pr-10 text-default"></i> <?php echo $settings->phone_1; ?></li>
+                                <li><a href="mailto:<?php echo $settings->email; ?>"><i class="fa fa-envelope-o pr-10"></i><?php echo $settings->email; ?></a></li>
                             </ul>
                         </div>
                     </div>
