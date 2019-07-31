@@ -1,3 +1,4 @@
+<?php $settings = get_settings(); ?>
 <!-- header-container start -->
 <div class="header-container">
 
@@ -23,7 +24,7 @@
 
                         <!-- name-and-slogan -->
                         <div class="site-slogan">
-                            Multipurpose HTML5 Template
+                            <?php echo $settings->slogan; ?>
                         </div>
 
                     </div>

@@ -11,7 +11,7 @@
                     <div class="col-md-3">
                         <div class="footer-content">
                             <div class="logo-footer"><img id="logo-footer" src="<?php echo base_url("assets/images");?>/logo_purple.png" alt=""></div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus illo vel dolorum soluta consectetur doloribus sit. Delectus non tenetur odit dicta vitae debitis suscipit doloribus. Ipsa, aut voluptas quaerat... <a href="page-about.html">Learn More<i class="fa fa-long-arrow-right pl-5"></i></a></p>
+                            <p><?php echo character_limiter(strip_tags($settings->about_us), 150); ?> ... <a href="<?php echo base_url("hakkimizda") ?>">devamı<i class="fa fa-long-arrow-right pl-5"></i></a></p>
                             <div class="separator-2"></div>
                             <nav>
                                 <ul class="nav nav-pills nav-stacked">
@@ -144,9 +144,9 @@
                     </div>
                     <div class="col-md-3">
                         <div class="footer-content">
-                            <h2 class="title">Find Us</h2>
+                            <h2 class="title">İletişim</h2>
                             <div class="separator-2"></div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium odio voluptatem necessitatibus illo vel dolorum soluta.</p>
+                            <p><?php echo $settings->slogan; ?></p>
                             <ul class="social-links circle animated-effect-1">
 								<?php if($settings->facebook){  ?>
 									<li class="facebook"><a target="_blank" href="<?php echo $settings->facebook; ?>"><i class="fa fa-facebook"></i></a></li>
