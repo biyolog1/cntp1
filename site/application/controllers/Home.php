@@ -210,5 +210,34 @@ class Home extends CI_Controller {
 		$this->load->view($viewData->viewFolder, $viewData);
 
 	}
+	public function contact(){
+		$viewData = new stdClass();
+		$viewData->viewFolder = "contact-v";
+
+		$this->load->helper("captcha");
+		$config=array(
+			"word" => '',
+			"img_path"        => 'captcha/',
+			"img_url"         =>  base_url("captcha"),
+			"font_path"       =>  'fonts/courbd.ttf',
+			"img_width"       =>  150,
+			"img_height"      =>  50,
+			"expiration"      =>  7200,
+			"word_length"     =>  5,
+			"font_size"       =>  20,
+			"img_id"          =>  "captcha_img",
+			"pool"            =>  "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
+			"colors"          =>  array(
+				'background'         => array(56,255,45),
+				'border'             => array(255,255,255),
+				'text'               => array(0,0,0),
+				'grid'               => array(255,40,40)
+			)
+		);
+		$viewData->captcha= create_captcha($config);
+		$this->session->set_userdata("captcha",$viewData->captcha["word"]);
+
+	    $this->load->view($viewData->viewFolder, $viewData);
+	}
 
 }
