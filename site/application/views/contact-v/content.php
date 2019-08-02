@@ -56,7 +56,7 @@
 							Olamaz Mesaj Bize Ulaşamadı! Birşeyler yanlış gitti. Lütfen girdiğiniz bilgileri kontrol ederek doğrulayın ve mesajınızı tekrar gönderin. Eğer sorun devam ediyorsa sistemlerimizde bakım olabilir daha sonra tekrar deneyin..
 						</div>
 						<div class="contact-form">
-							<form id="contact-form" class="margin-clear">
+							<form id="" class="margin-clear" role="form" method="post" action="<?php echo base_url("mesaj-gonder"); ?>">
 								<div class="form-group has-feedback">
 									<label for="name">Ad Soyad*</label>
 									<input type="text" class="form-control" id="name" name="name" placeholder="">
@@ -78,13 +78,13 @@
 									<i class="fa fa-pencil form-control-feedback"></i>
 								</div>
 								<div class="row">
-									<div class="col-md-3">
+									<div class="col-md-4">
 										<?php echo $captcha["image"]; ?>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group has-feedback">
 
-											<input type="text" class="form-control"  name="captcha" placeholder="Doğrulama Kodu..">
+											<input type="text" class="form-control" id="captcha" name="captcha" placeholder="Doğrulama Kodu..">
 
 										</div>
 

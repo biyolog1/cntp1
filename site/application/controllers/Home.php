@@ -216,17 +216,19 @@ class Home extends CI_Controller {
 
 		$this->load->helper("captcha");
 		$config=array(
+
 			"word" => '',
 			"img_path"        => 'captcha/',
 			"img_url"         =>  base_url("captcha"),
-			"font_path"       =>  'fonts/courbd.ttf',
-			"img_width"       =>  150,
 			"img_height"      =>  50,
+			//"font_path"       =>  '',
+			//"img_width"       =>  220,
+			//"img_height"      =>  50,
 			"expiration"      =>  7200,
 			"word_length"     =>  5,
-			"font_size"       =>  20,
+			//"font_size"       => 80,
 			"img_id"          =>  "captcha_img",
-			"pool"            =>  "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
+			"pool"            =>  "12345789ABCDEFHIJKLMNPRSTWXYZ",
 			"colors"          =>  array(
 				'background'         => array(56,255,45),
 				'border'             => array(255,255,255),
@@ -238,6 +240,30 @@ class Home extends CI_Controller {
 		$this->session->set_userdata("captcha",$viewData->captcha["word"]);
 
 	    $this->load->view($viewData->viewFolder, $viewData);
+	}
+	public function send_contact_message()
+	{
+$this->load->library("form_validation");
+$this->form_validation->set_rules("name", "Ad Soyad","trim|required");
+		$this->form_validation->set_rules("email", "E-mail","trim|required|valid_email");
+		$this->form_validation->set_rules("subject", "Konu","trim|required");
+		$this->form_validation->set_rules("message", "Mesajınız","trim|required");
+		$this->form_validation->set_rules("captcha", "Doğrulama Kodu","trim|required");
+
+
+		if ($this->form_validation->run() ===FALSE ){
+			//echo "basarisiz";
+			//TODO Alert
+			redirect(base_url("iletisim"));
+		}else {
+			if($this->session->userdata("captcha")== $this->input->post("captcha")){
+				// Email gönderme işlemi yapılacak
+			} else {
+
+				// TODO Alert..
+				redirect(base_url("iletisim"));
+			}
+		}
 	}
 
 }
