@@ -64,4 +64,6 @@ $route['sirketler'] = "Home/service_list";
 $route['hakkimizda'] = "Home/about_us";
 $route['iletisim'] = "Home/contact";
 $route['mesaj-gonder'] = "Home/send_contact_message";
+$route['abone-ol'] = "Home/make_me_member";
+$route['haberler'] = "Home/news_list";
 

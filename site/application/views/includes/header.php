@@ -74,7 +74,7 @@
 													<li ><a href="features-dark-page.html">Misyonumuz</a></li>
 													<li ><a href="features-dark-page.html">Vizyonumuz</a></li>
 													<li ><a href="<?php echo base_url("portfolyo-listesi"); ?>">Portfolyo</a></li>
-													<li ><a href="features-backgrounds.html">Haberler</a></li>
+													<li ><a href="<?php echo base_url("haberler"); ?>">Haberler</a></li>
 													<li ><a href="<?php echo base_url("sertifika-listesi"); ?>">Sertifikalar</a></li>
 												</ul>
 											</li>

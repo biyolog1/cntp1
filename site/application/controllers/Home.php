@@ -1,6 +1,7 @@
 <?php
 
-class Home extends CI_Controller {
+class Home extends CI_Controller
+{
 
 	public $viewFolder = "";
 
@@ -13,7 +14,8 @@ class Home extends CI_Controller {
 
 	}
 
-	public function index(){
+	public function index()
+	{
 
 		// Anasayfa...
 
@@ -21,7 +23,8 @@ class Home extends CI_Controller {
 
 	}
 
-	public function product_list(){
+	public function product_list()
+	{
 
 		$viewData = new stdClass();
 		$viewData->viewFolder = "product_list-v";
@@ -31,7 +34,7 @@ class Home extends CI_Controller {
 
 		$viewData->products = $this->Product_model->get_all(
 			array(
-				"isActive"  => 1
+				"isActive" => 1
 			), "rank ASC"
 		);
 
@@ -40,7 +43,8 @@ class Home extends CI_Controller {
 
 	}
 
-	public function product_detail($url = ""){
+	public function product_detail($url = "")
+	{
 
 		$viewData = new stdClass();
 		$viewData->viewFolder = "product-v";
@@ -51,22 +55,22 @@ class Home extends CI_Controller {
 
 		$viewData->product = $this->Product_model->get(
 			array(
-				"isActive"  => 1,
-				"url"       => $url
+				"isActive" => 1,
+				"url" => $url
 			)
 		);
 
-		$viewData->product_images=$this->Product_image_model->get_all(
-		array(
-			"isActive" =>1,
-			"product_id" =>$viewData->product->id,
-		), "rank ASC"
+		$viewData->product_images = $this->Product_image_model->get_all(
+			array(
+				"isActive" => 1,
+				"product_id" => $viewData->product->id,
+			), "rank ASC"
 		);
 
 		$viewData->other_products = $this->Product_model->get_all(
 			array(
-				"isActive"  => 1,
-				"id !="     => $viewData->product->id
+				"isActive" => 1,
+				"id !=" => $viewData->product->id
 			), "rand()", array("start" => 0, "count" => 3)
 		);
 
@@ -74,7 +78,8 @@ class Home extends CI_Controller {
 
 	}
 
-	public function portfolio_list(){
+	public function portfolio_list()
+	{
 		$viewData = new stdClass();
 		$viewData->viewFolder = "portfolio_list-v";
 		$this->load->model("Portfolios_model");
@@ -82,14 +87,15 @@ class Home extends CI_Controller {
 
 		$viewData->portfolios = $this->Portfolios_model->get_all(
 			array(
-				"isActive"  => 1
+				"isActive" => 1
 			), "rank ASC"
 		);
 
 		$this->load->view($viewData->viewFolder, $viewData);
 	}
 
-	public function portfolio_detail($url = ""){
+	public function portfolio_detail($url = "")
+	{
 		$viewData = new stdClass();
 		$viewData->viewFolder = "portfolios-v";
 
@@ -99,22 +105,22 @@ class Home extends CI_Controller {
 
 		$viewData->portfolios = $this->Portfolios_model->get(
 			array(
-				"isActive"  => 1,
-				"url"       => $url
+				"isActive" => 1,
+				"url" => $url
 			)
 		);
 
-		$viewData->portfolio_images=$this->Portfolios_image_model->get_all(
+		$viewData->portfolio_images = $this->Portfolios_image_model->get_all(
 			array(
-				"isActive" =>1,
-				"portfolios_id" =>$viewData->portfolios->id,
+				"isActive" => 1,
+				"portfolios_id" => $viewData->portfolios->id,
 			), "rank ASC"
 		);
 
 		$viewData->other_portfolios = $this->Portfolios_model->get_all(
 			array(
-				"isActive"  => 1,
-				"id !="     => $viewData->portfolios->id
+				"isActive" => 1,
+				"id !=" => $viewData->portfolios->id
 			), "rand()", array("start" => 0, "count" => 3)
 		);
 
@@ -122,18 +128,22 @@ class Home extends CI_Controller {
 
 
 	}
-	public function  course_list(){
-		$viewData=new stdClass();
-		$viewData->viewFolder="course_list-v";
+
+	public function course_list()
+	{
+		$viewData = new stdClass();
+		$viewData->viewFolder = "course_list-v";
 		$this->load->model("Course_model");
-		$viewData->courses=$this->Course_model->get_all(
+		$viewData->courses = $this->Course_model->get_all(
 			array(
-				"isActive"  => 1
-				), "rank ASC, event_date ASC"
+				"isActive" => 1
+			), "rank ASC, event_date ASC"
 		);
-	$this->load->view($viewData->viewFolder, $viewData);
-}
-	public function course_detail($url = ""){
+		$this->load->view($viewData->viewFolder, $viewData);
+	}
+
+	public function course_detail($url = "")
+	{
 		$viewData = new stdClass();
 		$viewData->viewFolder = "course-v";
 
@@ -141,15 +151,15 @@ class Home extends CI_Controller {
 
 		$viewData->course = $this->Course_model->get(
 			array(
-				"isActive"  => 1,
-				"url"       => $url
+				"isActive" => 1,
+				"url" => $url
 			)
 		);
 
 		$viewData->other_courses = $this->Course_model->get_all(
 			array(
-				"isActive"  => 1,
-				"id !="     => $viewData->course->id
+				"isActive" => 1,
+				"id !=" => $viewData->course->id
 			), "rand()", array("start" => 0, "count" => 3)
 		);
 
@@ -157,7 +167,8 @@ class Home extends CI_Controller {
 
 
 	}
-	public function  reference_list()
+
+	public function reference_list()
 	{
 		$viewData = new stdClass();
 		$viewData->viewFolder = "reference_list-v";
@@ -171,7 +182,7 @@ class Home extends CI_Controller {
 		$this->load->view($viewData->viewFolder, $viewData);
 	}
 
-	public function  brand_list()
+	public function brand_list()
 	{
 		$viewData = new stdClass();
 		$viewData->viewFolder = "brand_list-v";
@@ -185,7 +196,7 @@ class Home extends CI_Controller {
 		$this->load->view($viewData->viewFolder, $viewData);
 	}
 
-	public function  service_list()
+	public function service_list()
 	{
 		$viewData = new stdClass();
 		$viewData->viewFolder = "service_list-v";
@@ -200,7 +211,8 @@ class Home extends CI_Controller {
 	}
 
 
-	public function about_us(){
+	public function about_us()
+	{
 
 		$viewData = new stdClass();
 		$viewData->viewFolder = "about-v";
@@ -210,54 +222,68 @@ class Home extends CI_Controller {
 		$this->load->view($viewData->viewFolder, $viewData);
 
 	}
-	public function contact(){
+
+	public function contact()
+	{
 		$viewData = new stdClass();
 		$viewData->viewFolder = "contact-v";
 
 		$this->load->helper("captcha");
-		$config=array(
+		$config = array(
 
 			"word" => '',
-			"img_path"        => 'captcha/',
-			"img_url"         =>  base_url("captcha"),
-			"img_height"      =>  50,
+			"img_path" => 'captcha/',
+			"img_url" => base_url("captcha"),
+			"img_height" => 50,
 			//"font_path"       =>  '',
 			//"img_width"       =>  220,
 			//"img_height"      =>  50,
-			"expiration"      =>  7200,
-			"word_length"     =>  5,
+			"expiration" => 7200,
+			"word_length" => 5,
 			//"font_size"       => 80,
-			"img_id"          =>  "captcha_img",
-			"pool"            =>  "12345789ABCDEFHIJKLMNPRSTWXYZ",
-			"colors"          =>  array(
-				'background'         => array(56,255,45),
-				'border'             => array(255,255,255),
-				'text'               => array(0,0,0),
-				'grid'               => array(255,40,40)
+			"img_id" => "captcha_img",
+			"pool" => "12345789ABCDEFHIJKLMNPRSTWXYZ",
+			"colors" => array(
+				'background' => array(56, 255, 45),
+				'border' => array(255, 255, 255),
+				'text' => array(0, 0, 0),
+				'grid' => array(255, 40, 40)
 			)
 		);
-		$viewData->captcha= create_captcha($config);
-		$this->session->set_userdata("captcha",$viewData->captcha["word"]);
+		$viewData->captcha = create_captcha($config);
+		$this->session->set_userdata("captcha", $viewData->captcha["word"]);
 
-	    $this->load->view($viewData->viewFolder, $viewData);
+		$this->load->view($viewData->viewFolder, $viewData);
 	}
+
 	public function send_contact_message()
 	{
-$this->load->library("form_validation");
-$this->form_validation->set_rules("name", "Ad Soyad","trim|required");
-		$this->form_validation->set_rules("email", "E-mail","trim|required|valid_email");
-		$this->form_validation->set_rules("subject", "Konu","trim|required");
-		$this->form_validation->set_rules("message", "Mesajınız","trim|required");
-		$this->form_validation->set_rules("captcha", "Doğrulama Kodu","trim|required");
+		$this->load->library("form_validation");
+		$this->form_validation->set_rules("name", "Ad Soyad", "trim|required");
+		$this->form_validation->set_rules("email", "E-mail", "trim|required|valid_email");
+		$this->form_validation->set_rules("subject", "Konu", "trim|required");
+		$this->form_validation->set_rules("message", "Mesajınız", "trim|required");
+		$this->form_validation->set_rules("captcha", "Doğrulama Kodu", "trim|required");
 
 
-		if ($this->form_validation->run() ===FALSE ){
+		if ($this->form_validation->run() === FALSE) {
 			//echo "basarisiz";
 			//TODO Alert
 			redirect(base_url("iletisim"));
-		}else {
-			if($this->session->userdata("captcha")== $this->input->post("captcha")){
-				// Email gönderme işlemi yapılacak
+		} else {
+			if ($this->session->userdata("captcha") == $this->input->post("captcha")) {
+
+				$name = $this->input->post("name");
+				$email = $this->input->post("email");
+				$subject = $this->input->post("subject");
+				$message = $this->input->post("message");
+
+				$email_message = "{$name}  isimli ziyaretçi Mesaj Bıraktı <br><b>Mesaj : </b> {$message} <br> <b> E-Posta : {$email} </b>";
+				if (send_email("", "Site İletişim Mesajı | $subject", $email_message)) {
+					// TODO Alert
+				} else {
+					// TODO Alert
+				}
 			} else {
 
 				// TODO Alert..
@@ -266,4 +292,47 @@ $this->form_validation->set_rules("name", "Ad Soyad","trim|required");
 		}
 	}
 
+	public function make_me_member()
+	{
+		$this->load->library("form_validation");
+		$this->form_validation->set_rules("subscribe_email", "E-posta Adresi", "trim|required|valid_email");
+		if ($this->form_validation->run() === FALSE) {
+
+			// TODO Alert
+
+		} else {
+			$this->load->model("Member_model");
+			$insert = $this->Member_model->add(
+				array(
+					"email" => $this->input->post("subscribe_email"),
+					"ip_address" => $this->input->ip_address(),
+					"isActive" => 1,
+					"createdAt" => date("Y-m-d H:i:s")
+				)
+			);
+			if ($insert) {
+				// TODO Alert
+			} else {
+				// TODO Alert
+			}
+		}
+		redirect(base_url("iletisim"));
+
+	}
+
+	public function news_list()
+	{
+		$viewData = new stdClass();
+		$viewData->viewFolder = "news_list-v";
+		$this->load->model("News_model");
+
+
+		$viewData->news_list = $this->News_model->get_all(
+			array(
+				"isActive" => 1
+			), "rank ASC"
+		);
+
+		$this->load->view($viewData->viewFolder, $viewData);
+	}
 }
