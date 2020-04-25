@@ -330,9 +330,40 @@ class Home extends CI_Controller
 		$viewData->news_list = $this->News_model->get_all(
 			array(
 				"isActive" => 1
-			), "rank ASC"
+			), "createdAt DESC"
 		);
 
 		$this->load->view($viewData->viewFolder, $viewData);
+	}
+	public function news($url)
+	{
+		if($url !=""){
+			$viewData = new stdClass();
+			$viewData->viewFolder = "news-v";
+			$this->load->model("News_model");
+
+
+			$news = $this->News_model->get(
+				array(
+					"isActive" => 1,
+					"url" => $url
+				), "createdAt DESC"
+			);
+			if($news){
+				$viewData->news=$news;
+				$this->load->view($viewData->viewFolder, $viewData);
+
+			}else
+			{
+				 // todo Alert Eklenecek
+			}
+
+
+
+		}
+		else {
+			// todo Alert Eklenecek
+		}
+
 	}
 }

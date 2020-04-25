@@ -66,4 +66,5 @@ $route['iletisim'] = "Home/contact";
 $route['mesaj-gonder'] = "Home/send_contact_message";
 $route['abone-ol'] = "Home/make_me_member";
 $route['haberler'] = "Home/news_list";
+$route['haber/(:any)'] = "Home/news/$1";
 

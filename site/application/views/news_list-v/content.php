@@ -30,8 +30,8 @@
 
 								<?php if ($news->news_type == "image") { ?>
 									<div class="overlay-container">
-										<img src="<?php echo base_url("assets/images"); ?>/blog-2.jpg" alt="">
-										<a class="overlay-link" href="blog-post.html"><i class="fa fa-link"></i></a>
+										<img src="<?php echo base_url("panel/uploads/news-v/$news->img_url"); ?>" alt="<?php echo $news->url; ?>">
+										<a class="overlay-link" href="<?php echo base_url("haber/$news->url"); ?>"><i class="fa fa-link"></i></a>
 									</div>
 
 								<?php } else { ?>
@@ -45,16 +45,14 @@
 									</div>
 								<?php } ?>
 								<header>
-									<h2><a href="blog-post.html">Cute Robot</a></h2>
+									<h2><a href="<?php echo base_url("haber/$news->url"); ?>"><?php echo $news->title; ?></a></h2>
 									<div class="post-info">
                         <span class="post-date">
                           <i class="icon-calendar"></i>
-                          <span class="day">10</span>
-                          <span class="month">May 2017</span>
+                          <span class="month"><?php echo get_readable_date($news->createdAt); ?></span>
                         </span>
-										<span class="submitted"><i class="icon-user-1"></i> by <a href="#">John Doe</a></span>
-										<span class="comments"><i class="icon-chat"></i> <a
-												href="#">22 comments</a></span>
+										<span class="comments"><i class="icon-eye"></i> <a
+												href="#"><?php echo $news->viewCount ?> görüntülenme </a></span>
 									</div>
 								</header>
 								<div class="blogpost-content">
@@ -65,9 +63,8 @@
 										sollicitudin.</p>
 								</div>
 								<footer class="clearfix">
-									<div class="tags pull-left"><i class="icon-tags"></i> <a href="#">tag 1</a>, <a
-											href="#">tag 2</a>, <a href="#">long tag 3</a></div>
-									<div class="link pull-right"><i class="icon-link"></i><a href="#">Read More</a>
+
+									<div class="link pull-right"><i class="icon-link"></i><a href="<?php echo base_url("haber/$news->url"); ?>">Detayına Git</a>
 									</div>
 								</footer>
 							</article>
